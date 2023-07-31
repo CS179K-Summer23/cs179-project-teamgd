@@ -26,3 +26,4 @@
   - Ability to pin certain documents to make them more accessible based on user’s priorities
   - Sort documents based on filters: size, data accessed, alphabetical, date created
   - Get statistics about document (number characters, words)
+  - Authentication/User Profiles
