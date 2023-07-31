@@ -1,0 +1,16 @@
+User Story #1:
+As a developer, I want to enable customers to edit, upload, and delete their documents.
+- Ensure that when a user uploads a document, the updated document list is printed out, and the new document is there.
+- Ensure that when a user deletes a document, the updated document list is printed out, and the old document is removed.
+- Ensure that when a user edits a document, their changes are saved, and they can view them later.
+
+User Story #2:
+As a developer, I want to enforce customers logging in with a username and password to view their secure documents
+- Ensure when a customer starts the application, they are prompted with a login screen.
+- Ensure that when a customer sees a login screen, they have a option to create an account.
+- Ensure that when a customer creates an account, their information is stored in a a database.
+- Ensure that when a customer attempts a login, their information is compared to the database information.
+- Ensure that when a customer enters to correct information, they are logged in.
+- Ensure that when a customer enters incorrect information, they are denied from logging in.
+
+User Story #3:
