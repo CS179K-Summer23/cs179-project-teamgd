@@ -17,13 +17,14 @@
 
 ## 💡 Features 
 - **Our features:**
+  - Interface to access database
+  - Auto saving documents periodically, making older versions accessible
+  - Authentication/User Profiles
   - Ability to query documents
   - Ability to find and/or replace strings - will show documents/line number of string location(s)
   - Uploading/importing documents 
   - Conversion of non-json documents to json format and vice versa
   - Editing the document(s) in the database
-  - Auto saving documents periodically, making older versions accessible
   - Ability to pin certain documents to make them more accessible based on user’s priorities
   - Sort documents based on filters: size, data accessed, alphabetical, date created
   - Get statistics about document (number characters, words)
-  - Authentication/User Profiles
