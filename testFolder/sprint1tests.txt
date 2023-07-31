@@ -11,7 +11,7 @@ As a developer, I want to enforce customers logging in with a username and passw
 - Ensure that when a customer creates an account, their information is stored in a a database.
 - Ensure that when a customer attempts a login, their information is compared to the database information.
 - Ensure that when a customer enters to correct information, they are logged in.
-- Ensure that when a customer enters incorrect information, they are denied from logging in.
+- Ensure that when a customer enters incorrect information, they are shown the message "invalid credentials".
 
 User Story #3:
 - Ensure that when a user logs in, they are greeted with a main menu page that includes different options for them to choose. 
