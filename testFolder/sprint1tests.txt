@@ -14,3 +14,6 @@ As a developer, I want to enforce customers logging in with a username and passw
 - Ensure that when a customer enters incorrect information, they are denied from logging in.
 
 User Story #3:
+- Ensure that when a user logs in, they are greeted with a main menu page that includes different options for them to choose. 
+- Ensure that when a user picks an option from the main menu, their input is validated and they are transitioned to the respective feature submenu page. 
+- Ensure that when a user's input is invalid, they remain on the menu page and are prompted to try again. 
