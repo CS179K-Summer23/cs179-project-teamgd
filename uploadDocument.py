@@ -9,8 +9,7 @@ def convertToJson(csvPath, jsonPath):
     with open(csvPath) as csvf:
         csvReader = csv.DictReader(csvf)
         for rows in csvReader:
-            # key = rows['a'] 
-            # data[key] = rows
+            # Currently uses Arbitrary key 'index'
             data[index] = rows
             index += 1
  
@@ -21,15 +20,22 @@ def convertToJson(csvPath, jsonPath):
 
 # Takes from local computer to the database
 def uploadDocument(srcPath, destPath):
-    # reads file format and if its not json convert it to json
     split = os.path.splitext(srcPath)
 
     fileExtension = split[1]
-    print(fileExtension)
+
+    # reads file format if its not json convert it to json
     if fileExtension != '.json' and fileExtension == '.csv':
         print("Convertind from csv to json")
         convertToJson(srcPath, destPath)
+    elif fileExtension == '.json':
+        f = open(srcPath)
+        data = json.load(f)
+        with open(destPath, 'w') as jsonf:
+            jsonf.write(json.dumps(data, indent=4))
+        f.close()
     else:
-        print("test")
+        print("File Extension Not Recognized")
 
-uploadDocument("test2.csv", "new.json")
+# uploadDocument("test2.csv", "new.json")
+uploadDocument("test.json", "new.json")
