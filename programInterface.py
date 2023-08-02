@@ -2,14 +2,60 @@ def printMenu():
     print("----------")
     print("Main Menu:")
     print("----------")
-    print("1. query document")
-    print("2. edit document")
-    print("3. upload document")
-    print("4. convert document")
-    print("5. pin document")
-    print("6. sort documents")
-    print("7. retrieve document statistics\n")
-    
+    print("1. open document")
+    print("2. upload document")
+    print("3. delete document")
+    print("4. sort documents\n")
+    inp = input("Please input the number corresponding to the desired function to be executed:\n")
+    if inp == "1":
+        print("\n")
+        printQueryMenu()
+        inp2 = input("Please input the number corresponding to the desired function to be executed:\n")
+        if inp2 == "1":
+            print("\n")
+            printSubMenu()
+            userInput()
+        elif inp2 == "2":
+            print("\n")
+            printSubMenu()
+            userInput()
+        elif inp2 == "3":
+            print("\n")
+            printSubMenu()
+            userInput()
+        else:
+            print("Unknown input. Returning to main menu.\n")
+            printMenu()
+    elif inp == "2":
+        print("\n")
+        temporaryFeatureMenu()
+    elif inp == "3":
+        print("\n")
+        temporaryFeatureMenu()
+    elif inp == "4":
+        print("\n")
+        temporaryFeatureMenu()
+    else:
+        print("Unknown input. Please try again.\n")
+        printMenu()
+
+def printQueryMenu():
+    print("--------------")
+    print("Query Options:")
+    print("--------------")
+    print("1. query based on document name")
+    print("2. query based on document character count")
+    print("3. query based on document length\n")
+
+def printSubMenu():
+    print("---------")
+    print("Sub Menu:")
+    print("---------")
+    print("1. edit document")
+    print("2. convert document")
+    print("3. pin document")
+    print("4. retrieve document statistics\n")
+
 def userInput():
     inp = input("Please input the number corresponding to the desired function to be executed:\n")
     if inp == "1":
@@ -24,18 +70,9 @@ def userInput():
     elif inp == "4":
         print("\n")
         temporaryFeatureMenu()
-    elif inp == "5":
-        print("\n")
-        temporaryFeatureMenu()
-    elif inp == "6":
-        print("\n")
-        temporaryFeatureMenu()
-    elif inp == "7":
-        print("\n")
-        temporaryFeatureMenu()
     else:
         print("Unknown input. Please try again.\n")
-        printMenu()
+        printSubMenu()
         userInput()
         
 def temporaryFeatureMenu():
@@ -47,10 +84,8 @@ def temporaryFeatureMenu():
     if inp == "1":
         print("\n")
         printMenu()
-        userInput()
     else:
         print("Unknown input. Please try again.\n")
         temporaryFeatureMenu()
         
 printMenu()
-userInput()
