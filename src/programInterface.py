@@ -1,3 +1,4 @@
+
 def printMenu():
     print("----------")
     print("Main Menu:")
@@ -87,5 +88,3 @@ def temporaryFeatureMenu():
     else:
         print("Unknown input. Please try again.\n")
         temporaryFeatureMenu()
-        
-printMenu()

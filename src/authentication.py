@@ -1,3 +1,4 @@
+from programInterface import *
 
 class Credentials:
     def __init__(self, user, password):
@@ -31,6 +32,7 @@ def main():
                 if c.user == user and c.password == password:
                     print ("Valid credentials, you are logged in.")
                     flag = 1
+                    printMenu()
                     break;
             if flag == 0:
                 print("Invalid credentials")
