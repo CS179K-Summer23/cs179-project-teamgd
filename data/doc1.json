@@ -1,0 +1,12 @@
+[
+    {
+        "name": "doc1.txt",
+        "created": "1234",
+        "otherstats": "1234"
+    },
+    {
+        "name": "doc2.txt",
+        "created": "1234",
+        "otherstats": "1234"
+    }
+]
