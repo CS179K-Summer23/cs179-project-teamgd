@@ -68,13 +68,7 @@ def pinDocument():
     db.printDocs()
 
 def getDatabaseStats():
-    print("--------------")
-    print("Query Options:")
-    print("--------------")
-    print("1. query based on document name")
-    print("2. query based on document character count")
-    print("3. query based on document length\n")
-
+    db.printDBMenu()
 
 def userInput():
     inp = input("Please input the number corresponding to the desired function to be executed:\n")
