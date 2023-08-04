@@ -1,5 +1,7 @@
+from database import *
 
 def printMenu():
+    db = Database()
     print("----------")
     print("Main Menu:")
     print("----------")
@@ -14,6 +16,7 @@ def printMenu():
         inp2 = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp2 == "1":
             print("\n")
+            db.printDocNames()
             printSubMenu()
             userInput()
         elif inp2 == "2":
