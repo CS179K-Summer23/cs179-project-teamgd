@@ -40,10 +40,9 @@ class Database:
             print("4. Find average size of document")
             print("5. Return to main menu\n")
 
-            inp = input("Please input the number corresponding to the desired function to be executed:\n")
+            inp = input("Please input the number corresponding to the desired function to be executed:")
 
             if inp == "1":
-                print("\n")
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
@@ -57,7 +56,7 @@ class Database:
                 print("Largest file: " + max_name + "\nNumber of characters: " + str(max_characters) + "\n")
                 input("Press ENTER to continue")
             elif inp == "2":
-                inp = input("Please enter the character you wish to search for occurrences of:\n")
+                inp = input("Please enter the character you wish to search for occurrences of:")
 
                 max_characters = 0
                 max_name = ""
@@ -69,7 +68,7 @@ class Database:
                     if (max_characters < number_of_characters):
                         max_characters = number_of_characters
                         max_name = doc['name']
-                print("File with most occurrences of \'" + inp + "\': " + max_name + "\nNumber of \'" + inp + "\'s: " + str(max_characters) + "\n")
+                print("\nFile with most occurrences of \'" + inp + "\': " + max_name + "\nNumber of \'" + inp + "\'s: " + str(max_characters) + "\n")
                 input("Press ENTER to continue")
                 print("\n")
             elif inp == "3":
@@ -82,6 +81,11 @@ class Database:
 
     
     def addFile(self, fileName):
+        for doc in self.db['documents']:
+            if doc['name'] == fileName:
+                print("Duplicate file name: " + fileName)
+                print("File not added")
+
         new_entry = {
             "name": fileName,
             "docnum": self.docnum

@@ -3,14 +3,15 @@ import string
 import sys
 from database import *
 
-
+num_files = 20
+min_file_length = 100
+max_file_length = 3000
 
 def generateTestFiles():
     db = Database()
-    numFiles = 20
-    for i in range(numFiles):
-        fileNameLength = random.randrange(5, 20)
-        fileLength = random.randrange(50, 1500)
+    for i in range(num_files):
+        fileNameLength = random.randrange(8, 15)
+        fileLength = random.randrange(100, 3000)
         name_set = string.ascii_letters + string.digits
         char_set = string.printable
 
