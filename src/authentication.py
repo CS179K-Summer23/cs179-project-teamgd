@@ -33,7 +33,7 @@ def main():
                     print ("Valid credentials, you are logged in.")
                     flag = 1
                     printMenu()
-                    break;
+                    break
             if flag == 0:
                 print("Invalid credentials")
         elif choice == 3:
