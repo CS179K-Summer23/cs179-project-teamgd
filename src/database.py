@@ -17,7 +17,7 @@ class Database:
             s = str(doc["docnumber"]) + ". " + doc["name"]
             print(s)
 
-    def pickDoc(self):
+    def getDoc(self):
         print("Please type the number of the document you want to access")
         choice = int(input())
         #if choice > self.db['documents'].length:

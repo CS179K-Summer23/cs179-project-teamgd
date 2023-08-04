@@ -1,4 +1,4 @@
-from programInterface import *
+from MainMenu import *
 
 class Credentials:
     def __init__(self, user, password):
@@ -6,7 +6,7 @@ class Credentials:
         self.password = password
 
 
-def main():
+def printLoginMenu():
     cred_list = []
     while(True):
         print("Hello, please choose an option")
@@ -14,7 +14,7 @@ def main():
         print("2. Login")
         print("3. Exit")
         choice = int(input())
-        if choice == 1:
+        if choice == 1: #Create New Account
             print("Enter your username")
             user = input()
             print("Enter your password")
@@ -22,7 +22,7 @@ def main():
             creds = Credentials(user, password)
             cred_list.append(creds)
             continue
-        elif choice == 2:
+        elif choice == 2: #Login
             print("Username: ")
             user = input()
             print("Password: ")
@@ -36,9 +36,9 @@ def main():
                     break
             if flag == 0:
                 print("Invalid credentials")
-        elif choice == 3:
+        elif choice == 3: #Exit
             quit()
 
 
 if __name__ == "__main__":
-    main()
+    printLoginMenu()
