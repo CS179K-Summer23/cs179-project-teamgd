@@ -46,8 +46,8 @@ def printMenu():
 
 def openDocument():
     db.printDocs()
-    docinfo = db.getDoc() #docinfo is the json entry of the document in docinfo.json
-    printDocumentMenu(docinfo)
+    filepath = "./documents/" + db.getDoc()['name'] #docinfo is the json entry of the document in docinfo.json
+    printDocumentMenu(filepath)
 
 def uploadDocument():
     print("upload document")
