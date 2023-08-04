@@ -16,7 +16,7 @@ def convertToJson(csvPath, jsonPath):
     with open(jsonPath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
     
-    print("Success")
+    # print("Success")
 
 # Takes from local computer to the database
 def uploadDocument(srcPath, destPath):
@@ -26,7 +26,7 @@ def uploadDocument(srcPath, destPath):
 
     # reads file format if its not json convert it to json
     if fileExtension != '.json' and fileExtension == '.csv':
-        print("Converting from csv to json")
+        # print("Converting from csv to json")
         convertToJson(srcPath, destPath)
     elif fileExtension == '.json':
         f = open(srcPath)
@@ -35,7 +35,7 @@ def uploadDocument(srcPath, destPath):
             jsonf.write(json.dumps(data, indent=4))
         f.close()
     else:
-        print("File Extension Not Recognized")
+        print("File extension not recognized.")
 
-# uploadDocument("test2.csv", "new.json")
-uploadDocument("test.json", "new.json")
+uploadDocument("test2.csv", "./documents/new.json")
+# uploadDocument("test.json", "./documents/new.json")
