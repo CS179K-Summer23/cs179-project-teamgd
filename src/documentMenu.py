@@ -1,4 +1,4 @@
-def printDocumentMenu(docinfo):
+def printDocumentMenu(filepath):
     while(True):
         print("---------")
         print("Document Menu:")
