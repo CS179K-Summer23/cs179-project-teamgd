@@ -15,7 +15,8 @@ class Database:
         self.db['documents'] = sorted(self.db['documents'], key=lambda x: x['docnum'])
         for i in range(1, self.docnum):
             for doc in self.db['documents']:
-                print(doc['docnum'] + ". " + doc['name'])
+                if (i == doc['docnum']):
+                    print(str(doc['docnum']) + ". " + doc['name'])
         print("\n")
 
     def getDoc(self):
@@ -26,7 +27,7 @@ class Database:
         #    return
 
         for doc in self.db['documents']:
-            if choice == doc['docnumber']:
+            if choice == doc['docnum']:
                 return doc
             
     def printDBMenu(self):        
