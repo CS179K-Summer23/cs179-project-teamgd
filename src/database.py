@@ -3,17 +3,20 @@ import json
 class Database:
 
     db = {}
+    docnum = 1
     def __init__(self):
         with open("./data/docinfo.json") as f:
-            self.db = json.load(f)
+            if (f):
+                self.db = json.load(f)
+            self.docnum = len(self.db['documents'])+1
 
     def printDocs(self):
-        i=0
         print("List of your documents: ")
-        for doc in self.db['documents']:
-            s = str(i) + ". " + doc["name"]
-            i = i+1
-            print(s)
+        self.db['documents'] = sorted(self.db['documents'], key=lambda x: x['docnum'])
+        for i in range(1, self.docnum):
+            for doc in self.db['documents']:
+                print(doc['docnum'] + ". " + doc['name'])
+        print("\n")
 
     def getDoc(self):
         print("Please type the number of the document you want to access")
@@ -77,10 +80,40 @@ class Database:
                 print("\n")
                 break
 
-
-
-
     
+    def addFile(self, fileName):
+        new_entry = {
+            "name": fileName,
+            "docnum": self.docnum
+        }
+        self.db['documents'].append(new_entry)
 
-            
+        self.docnum = self.docnum+1
+
+        self.updateJson()
+
+
+    def deleteFile(self, fileName):
+        #delete file
+        deletenum = self.docnum
+        for i in range (self.docnum):
+            if self.db['documents'][i]['name'] == fileName:
+                deletenum = self.db['documents'][i]['docnum']
+                del self.db['documents'][i]
+                break
         
+        #decrement all docnums greater
+
+        for doc in self.db['documents']:     
+            if doc['docnum'] > deletenum:
+                doc['docnum'] = doc['docnum']-1       
+        #decrement docnum
+        self.docnum = self.docnum-1
+
+        self.updateJson()
+
+    def updateJson(self):
+        json_object = json.dumps(self.db, indent=3)
+        
+        with open ("./data/docinfo.json", "w") as f:
+            f.write(json_object)
