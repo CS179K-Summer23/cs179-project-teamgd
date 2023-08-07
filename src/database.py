@@ -5,7 +5,7 @@ class Database:
     db = {}
     docnum = 1
     def __init__(self):
-        with open("../data/docinfo.json") as f:
+        with open("./data/docinfo.json") as f:
             if (f):
                 self.db = json.load(f)
             self.docnum = len(self.db['documents'])+1
