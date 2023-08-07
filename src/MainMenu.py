@@ -23,7 +23,7 @@ def printMenu():
             openDocument()
         elif inp == "2":
             print("\n")
-            uploadDocument()
+            uploadDoc()
         elif inp == "3":
             print("\n")
             deleteDocument()
@@ -50,12 +50,36 @@ def openDocument():
     filepath = "../documents/" + db.getDoc()['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
 
-def uploadDocument():
+def uploadDoc():
     srcPath = input("Input file you want to upload: ")
-    destPath = input("Input where you want to upload: ")
+    split = os.path.splitext(srcPath)
+    
+    if(os.path.isfile(srcPath) or split[1] == '.json' or split[1] == '.csv'):
+    
+        destPath = input("Input where you want to upload and file name: ")
+        split1 = os.path.splitext(destPath)
 
+        if(os.path.isfile(destPath) or os.path.isfile(destPath + '.json')):
+            print("File already exists")
+            return
+        elif(os.path.isdir(destPath)):
+            print("Directory exists, need filename")
+            return
+        elif(split1[1] != '.json'):
+            print("Invalid file extension")
+            return
+        elif(not destPath):
+            print("Invalid Input")
+            return
+    else:
+        print("File does not exist or Invalid input")
+        return
+        
+
+    
     # The uploadDocument function calls convertToJson function
     uploadDocument(srcPath, destPath) 
+
     print("upload document")
 
 def deleteDocument():
