@@ -87,6 +87,7 @@ def loginDecrypt():
  encryptedFile.close()
  file.close()
 
+
 def encryptCheck():
  with open('login.txt', 'r') as loginCheck:
   lines = loginCheck.readlines()
