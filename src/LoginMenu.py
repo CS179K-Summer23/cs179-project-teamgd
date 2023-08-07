@@ -29,13 +29,13 @@ def printLoginMenu():
             try:
              if(login(user, password)):
               print("Login Successful!")
+              loginEncrypt()
               printMenu()
-              return
              else:
               print("Username/Password Invalid!")
-             loginEncrypt()
+              loginEncrypt()
             except:
-             print("Unknown Error Occurred")
+             print("Unknown error has occurred!")
              loginEncrypt()
         elif choice == "3": #Exit
             quit()

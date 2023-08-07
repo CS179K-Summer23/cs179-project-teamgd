@@ -49,7 +49,9 @@ def login(username, password):
    if usernameLine == username + "\n":
     usernameIndex = usernameLines.index(usernameLine)
     if passwordLines[usernameIndex] == password + "\n":
+     loginInfo.close()
      return(True)
+  loginInfo.close()
   return(False)
 
 

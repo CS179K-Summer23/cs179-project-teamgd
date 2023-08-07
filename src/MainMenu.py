@@ -1,7 +1,7 @@
 from database import *
 from documentMenu import *
 from importjsonDoc import *
-from LoginMenu import printLoginMenu
+from LoginMenu import *
 
 db = Database()
 
@@ -41,8 +41,7 @@ def printMenu():
             print("\n")
             getDatabaseStats()
         elif inp == "8":
-            printLoginMenu()
-            break
+            return
         else:
             print("Unknown input. Please try again.\n")
 
