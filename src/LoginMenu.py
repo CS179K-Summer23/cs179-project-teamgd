@@ -1,4 +1,5 @@
 from MainMenu import *
+from loginEncryption import *
 
 class Credentials:
     def __init__(self, user, password):
@@ -7,36 +8,41 @@ class Credentials:
 
 
 def printLoginMenu():
-    cred_list = []
+    menu_options = ["Hello, please choose an option", "1. Create New Account", "2. Login", "3. Change Password", "4. Delete User", "5. Exit"]
     while(True):
-        print("Hello, please choose an option")
-        print("1. Create New Account")
-        print("2. Login")
-        print("3. Exit")
-        choice = int(input())
-        if choice == 1: #Create New Account
-            print("Enter your username")
+        for option in menu_options:
+            print(option)
+        print("Select an option: ", end = "")
+        choice = input()
+        if choice == "1": #Create New Account
+            encryptCheck()
+            loginDecrypt()
+            usernameQuery()
+            loginEncrypt()
+            print("New login successfully created!")
+        elif choice == "2": #Login
+            print("Username: ", end = "")
             user = input()
-            print("Enter your password")
+            print("Password: ", end = "")
             password = input()
-            creds = Credentials(user, password)
-            cred_list.append(creds)
-            continue
-        elif choice == 2: #Login
-            print("Username: ")
-            user = input()
-            print("Password: ")
-            password = input()
-            flag = 0
-            for c in cred_list:
-                if c.user == user and c.password == password:
-                    print ("Valid credentials, you are logged in.")
-                    flag = 1
-                    printMenu()
-                    break
-            if flag == 0:
-                print("Invalid credentials")
-        elif choice == 3: #Exit
+            encryptCheck()
+            loginDecrypt()		
+            try:
+                 if(login(user, password)):
+                      print("Login Successful!")
+                      loginEncrypt()
+                      printMenu()
+                 else:
+                      print("Username/Password Invalid!")
+                      loginEncrypt()
+            except:
+                 print("Unknown error has occurred!")
+                 encryptCheck()
+        elif choice == "3": #Change Password
+            print("This feature hasn't been implemented yet...")
+        elif choice == "4": #Delete User
+            print("This feature hasn't been implemented yet...")
+        elif choice == "5": #Exit
             quit()
 
 
