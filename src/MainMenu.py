@@ -1,5 +1,6 @@
 from database import *
 from documentMenu import *
+from importjsonDoc import *
 
 db = Database()
 
@@ -53,6 +54,11 @@ def openDocument():
     printDocumentMenu(filepath)
 
 def uploadDocument():
+    srcPath = input("Input file you want to upload: ")
+    destPath = input("Input where you want to upload: ")
+
+    # The uploadDocument function calls convertToJson function
+    uploadDocument(srcPath, destPath) 
     print("upload document")
 
 def deleteDocument():
