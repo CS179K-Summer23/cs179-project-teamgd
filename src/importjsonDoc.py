@@ -37,5 +37,5 @@ def uploadDocument(srcPath, destPath):
     else:
         print("File extension not recognized.")
 
-# uploadDocument("test2.csv", "./documents/new.json")
-# uploadDocument("test.json", "./documents/new.json")
+# uploadDocument("test.csv", "new.json")
+# uploadDocument("test2.json", "new2.json")

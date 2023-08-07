@@ -23,7 +23,7 @@ def printMenu():
             openDocument()
         elif inp == "2":
             print("\n")
-            uploadDocument()
+            uploadDoc()
         elif inp == "3":
             print("\n")
             deleteDocument()
@@ -50,7 +50,7 @@ def openDocument():
     filepath = "./documents/" + db.getDoc()['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
 
-def uploadDocument():
+def uploadDoc():
     srcPath = input("Input file you want to upload: ")
     destPath = input("Input where you want to upload: ")
 
