@@ -17,3 +17,15 @@ User Story #3:
 - Ensure that when a user logs in, they are greeted with a main menu page that includes different options for them to choose. 
 - Ensure that when a user picks an option from the main menu, their input is validated and they are transitioned to the respective feature submenu page. 
 - Ensure that when a user's input is invalid, they remain on the menu page and are prompted to try again. 
+
+Week 2
+
+- Ensure that when a user deletes a document, that document is removed and the information file about docs is updated
+- Ensure that when a user pins a document, that document appears pinned
+- Ensure that when a user runs the "find number of documents" query, the corrent number of documents is returned
+- Ensure that when a user runs the "average word count" query, the corrent number of documents is returned
+- Ensure that when a user runs the "average size" query, the currect average size of the documents is displayed to the user
+- Ensure that when a user deletes a user login, those credentials can no longer be used to log in
+- Ensure that when a user changes their username/password, their credentials are correctly changed, and the new credentials can be used to log in successfully
+- Ensure that when a user runs the export function, the document is correctly downloaded to the machine
+- Ensure that when a user runs the "sort documents in alphabetical order" function, the documents are correctly sorted (correct order when using list docs function, as well as docnum are updated)
