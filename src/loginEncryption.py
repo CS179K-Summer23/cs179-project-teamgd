@@ -30,7 +30,6 @@ def passwordQuery(newUsername):
 def createLogin(newUsername, newPassword):
  appendInput(newUsername)
  appendInput(newPassword)
- print("New login successfully created!")
 
 
 def appendInput(userInput):
@@ -87,3 +86,13 @@ def loginDecrypt():
  filekey.close()
  encryptedFile.close()
  file.close()
+
+def encryptCheck():
+ with open('login.txt', 'r') as loginCheck:
+  lines = loginCheck.readlines()
+  loginCheck.close()
+  if len(lines) == 0:
+   createLogin("test", "test")
+   loginEncrypt()
+  if len(lines) > 1:
+   loginEncrypt()

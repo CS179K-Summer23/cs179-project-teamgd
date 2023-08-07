@@ -15,15 +15,18 @@ def printLoginMenu():
         print("Select an option: ", end = "")
         choice = input()
         if choice == "1": #Create New Account
+            encryptCheck()
             loginDecrypt()
             usernameQuery()
             loginEncrypt()
+            print("New login successfully created!")
         elif choice == "2": #Login
             print("Username: ", end = "")
             user = input()
             print("Password: ", end = "")
             password = input()
-            loginDecrypt()
+            encryptCheck()
+            loginDecrypt()		
             try:
                  if(login(user, password)):
                       print("Login Successful!")
@@ -34,7 +37,7 @@ def printLoginMenu():
                       loginEncrypt()
             except:
                  print("Unknown error has occurred!")
-                 loginEncrypt()
+                 encryptCheck()
         elif choice == "3": #Change Password
             print("This feature hasn't been implemented yet...")
         elif choice == "4": #Delete User
