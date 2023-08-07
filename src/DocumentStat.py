@@ -1,39 +1,79 @@
 from datetime import datetime
+import os
+import json
 
-def currentTime(datafile):
+currentpath = os.getcwd()
+parentpath = os.path.dirname(currentpath)
+
+documentlist = []
+
+class DataStat:
+    def __init__(self, name, extension, wordcount, tcreated, taccessed):
+        self.name = name
+        self.extension = extension
+        self.wordcount = wordcount
+        self.tcreated = tcreated
+        self.taccessed = taccessed
+    def printStat(self):
+        print(self.name, self.extension, self.wordcount, self.tcreated, self.taccessed, "\n")
+
+def populateDataStat(filename):
+    file = os.path.splitext(filename)
+    file_name = str(file[0])
+    file_extension = str(file[1])
+    file_wordcount = wordCount(filename)
+    file_tcreated = createtime(filename)
+    file_taccessed = lastaccessedtime(filename)
+    tempfile = DataStat(file_name, file_extension, file_wordcount, file_tcreated, file_taccessed)
+    documentlist.append(tempfile)
+
+
+def createtime(filename):
+    timecreated = os.path.getctime(filename)
+    datecreated = datetime.fromtimestamp(timecreated)
+    createtime = str(datecreated)
+
+    return createtime
+
+def lastaccessedtime(filename):
     current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
     # print("It is currently: ", current_datetime)
     
     currenttime = str(current_datetime)
     
-    # open passed in file name
-    f = open(datafile, 'a')
-    f.write("Last Accessed: ")
-    f.write(current_datetime)
-    f.write("\n \n")
-    f.close()
+    return currenttime
 
-def wordCount(filename, datafile):
+def wordCount(filename):
     wordnum = 0
     with open(filename) as file:
         content = file.read()
         lines = content.split()
         wordnum += len(lines)
-        f = open(datafile, 'a')
-        f.write("Wordcount: ")
-        f.write(str(wordnum))
-        f.write("\n")
-        f.close()
-        
-def printFileStatistics():
-    datafile = "../data/test.json"
-    filename = "../documents/text.txt"
-    f = open(datafile, 'a')
-    f.write("File Name: ")
-    f.write(filename)
-    f.write("\n")
-    f.close()
-    wordCount(filename, datafile)
-    currentTime(datafile)
-    
-printFileStatistics()
+    strwordnum = str(wordnum)
+    return strwordnum
+
+populateDataStat(parentpath + "/documents/text.txt")
+
+with open(parentpath + "/data/documentstats.json", "w") as outfile:
+    for DataStat in documentlist:
+        outfile.write(json.dumps(DataStat.__dict__, indent=4))
+
+# def printFileStatistics(filename):
+#     datafile = parentpath + "/data/test.json"
+#     f = open(datafile, 'a')
+#     f.write("File Name: ")
+#     # print("File Name: ")
+#     f.write(filename)
+#     # print(filename)
+#     f.write("\n")
+#     f.close()
+#     getExt(filename)
+#     wordCount(filename, datafile)
+#     timeStat(datafile)
+# # 
+# def startfile():
+#     datafile = parentpath + "/data/test.json"
+#     f = open(datafile, 'w')
+#     f.close()
+# startfile()    
+
