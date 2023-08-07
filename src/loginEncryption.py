@@ -40,6 +40,21 @@ def appendInput(userInput):
   loginKey.close()
 
 
+def login(username, password):
+ with open('login.txt', 'r') as loginInfo:
+  lines = loginInfo.readlines()
+  usernameLines = lines[::2]
+  passwordLines = lines[1::2]
+  for usernameLine in usernameLines:
+   if usernameLine == username + "\n":
+    usernameIndex = usernameLines.index(usernameLine)
+    if passwordLines[usernameIndex] == password + "\n":
+     loginInfo.close()
+     return(True)
+  loginInfo.close()
+  return(False)
+
+
 def loginEncrypt():
  with open('filekey.key', 'rb') as filekey:
   key = filekey.read()
@@ -72,7 +87,3 @@ def loginDecrypt():
  filekey.close()
  encryptedFile.close()
  file.close()
- 
-loginDecrypt()
-usernameQuery()
-loginEncrypt()
