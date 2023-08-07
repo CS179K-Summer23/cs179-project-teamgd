@@ -24,6 +24,10 @@ def uploadDocument(srcPath, destPath):
 
     fileExtension = split[1]
 
+    if(fileExtension == ""):
+        print("no File Extension")
+        destPath += '.json'
+
     # reads file format if its not json convert it to json
     if fileExtension != '.json' and fileExtension == '.csv':
         # print("Converting from csv to json")
