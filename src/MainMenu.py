@@ -46,7 +46,10 @@ def printMenu():
 
 def openDocument():
     db.printDocs()
-    filepath = "./documents/" + db.getDoc()['name'] #docinfo is the json entry of the document in docinfo.json
+    file = db.getDoc()
+    if (file == -1):
+        return
+    filepath = "./documents/" + file['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
 
 def uploadDocument():
@@ -54,6 +57,7 @@ def uploadDocument():
 
 def deleteDocument():
     db.printDocs()
+    #db.deleteFile()
     print("delete document")
 
 def sortDocuments():
