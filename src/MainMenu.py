@@ -52,16 +52,21 @@ def openDocument():
 
 def uploadDoc():
     srcPath = input("Input file you want to upload: ")
+    split = os.path.splitext(srcPath)
     
-    if(os.path.isfile(srcPath)):
+    if(os.path.isfile(srcPath) or split[1] == '.json' or split[1] == '.csv'):
     
         destPath = input("Input where you want to upload and file name: ")
+        split1 = os.path.splitext(destPath)
 
         if(os.path.isfile(destPath) or os.path.isfile(destPath + '.json')):
             print("File already exists")
             return
         elif(os.path.isdir(destPath)):
             print("Directory exists, need filename")
+            return
+        elif(split1[1] != '.json'):
+            print("Invalid file extension")
             return
         elif(not destPath):
             print("Invalid Input")
