@@ -22,9 +22,10 @@ class Database:
     def getDoc(self):
         print("Please type the number of the document you want to access")
         choice = int(input())
-        #if choice > self.db['documents'].length:
-        #    print("Invalid Input")
-        #    return
+        print(self.docnum)
+        if choice > self.docnum-1:
+            print("Invalid Input")
+            return -1
 
         for doc in self.db['documents']:
             if choice == doc['docnum']:

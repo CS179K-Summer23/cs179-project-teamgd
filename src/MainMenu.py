@@ -60,6 +60,7 @@ def uploadDocument():
 
 def deleteDocument():
     db.printDocs()
+    #db.deleteFile()
     print("delete document")
 
 def sortDocuments():
