@@ -1,11 +1,13 @@
 import json
+import os
 
 class Database:
-
+    currentpath = os.getcwd()
+    parentpath = os.path.dirname(currentpath)
     db = {}
     docnum = 1
     def __init__(self):
-        with open("../data/docinfo.json") as f:
+        with open(self.parentpath + "/data/docinfo.json", "r") as f:
             if (f):
                 self.db = json.load(f)
             self.docnum = len(self.db['documents'])+1
@@ -19,10 +21,7 @@ class Database:
                     print(str(doc['docnum']) + ". " + doc['name'])
         print("\n")
 
-    def getDoc(self):
-        print("Please type the number of the document you want to access")
-        choice = int(input())
-        print(self.docnum)
+    def getDoc(self, choice):
         if choice > self.docnum-1:
             print("Invalid Input")
             return -1
@@ -99,14 +98,22 @@ class Database:
         self.updateJson()
 
 
-    def deleteFile(self, fileName):
+    def deleteFile(self, fileName, docnum):
         #delete file
         deletenum = self.docnum
-        for i in range (self.docnum):
-            if self.db['documents'][i]['name'] == fileName:
-                deletenum = self.db['documents'][i]['docnum']
-                del self.db['documents'][i]
-                break
+        if docnum == -1:
+            for i in range (self.docnum-1):
+                if self.db['documents'][i]['name'] == fileName:
+                    deletenum = self.db['documents'][i]['docnum']
+                    del self.db['documents'][i]
+                    break
+        else:
+            for i in range (self.docnum-1):
+                if self.db['documents'][i]['docnum'] == docnum:
+                    deletenum = self.db['documents'][i]['docnum']
+                    fileName = self.db['documents'][i]['name']
+                    del self.db['documents'][i]
+                    break
         
         #decrement all docnums greater
 
@@ -115,11 +122,11 @@ class Database:
                 doc['docnum'] = doc['docnum']-1       
         #decrement docnum
         self.docnum = self.docnum-1
-
+        path = self.parentpath + "/documents/" + fileName
+        os.remove(path)
         self.updateJson()
-
+        
     def updateJson(self):
         json_object = json.dumps(self.db, indent=3)
-        
-        with open ("./data/docinfo.json", "w") as f:
+        with open(self.parentpath + "/data/docinfo.json", "w") as f:
             f.write(json_object)
