@@ -17,7 +17,7 @@ def usernameCheck(newUsername):
  with open('login.txt', 'r') as usernameConfirm:
   lines = usernameConfirm.readlines()
   for usernameLine in lines[::2]:
-   if usernameLine == newUsername + "\n":
+   if usernameLine.strip('\n') == newUsername:
     return(False)
   return(True)
 
@@ -49,7 +49,7 @@ def login(username, password):
   for usernameLine in usernameLines:
    if usernameLine == username + "\n":
     usernameIndex = usernameLines.index(usernameLine)
-    if passwordLines[usernameIndex] == password + "\n":
+    if passwordLines[usernameIndex].strip('\n') == password:
      loginInfo.close()
      return(True)
   loginInfo.close()
@@ -57,7 +57,22 @@ def login(username, password):
 
 
 def deleteUser(username):
- pass
+ with open('login.txt', 'r') as loginInfo:
+  lines = loginInfo.readlines()
+ for usernameLine in lines:
+  if usernameLine.strip('\n') == username:
+   passIndex = lines.index(usernameLine)
+ loginInfo.close()
+ with open('login.txt', 'w') as loginInfo:
+  flag = True
+  for line in lines:
+   if line.strip('\n') != username and flag:
+    loginInfo.write(line)
+   elif not flag:
+    flag = True
+   if line.strip('\n') == username:
+    flag = False
+ loginInfo.close()
 
 
 def loginEncrypt():
@@ -65,15 +80,15 @@ def loginEncrypt():
   key = filekey.read()
  fernet = Fernet(key)
 
- with open('login.txt', 'rb') as file:
-  original = file.read()
+ with open('login.txt', 'rb') as loginInfo:
+  original = loginInfo.read()
 
  encrypted = fernet.encrypt(original)
  with open('login.txt', 'wb') as encryptedFile:
   encryptedFile.write(encrypted)
 
  filekey.close()
- file.close()
+ loginInfo.close()
  encryptedFile.close()
 
 
