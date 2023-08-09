@@ -5,6 +5,9 @@ from LoginMenu import *
 
 db = Database()
 
+currentpath = os.getcwd()
+parentpath = os.path.dirname(currentpath)
+
 def printMenu():
     while (True):
         print("----------")
@@ -47,7 +50,9 @@ def printMenu():
 
 def openDocument():
     db.printDocs()
-    filepath = "../documents/" + db.getDoc()['name'] #docinfo is the json entry of the document in docinfo.json
+    print("Please type the number of the document you want to open")
+    choice = int(input())
+    filepath = parentpath + "/documents/" + db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
 
 def uploadDoc():
@@ -84,8 +89,9 @@ def uploadDoc():
 
 def deleteDocument():
     db.printDocs()
-    #db.deleteFile()
-    print("delete document")
+    print("Please type the number of the document you want to delete")
+    choice = int(input())
+    db.deleteFile(fileName = "", docnum=choice)
 
 def sortDocuments():
     db.printDocs()
@@ -131,3 +137,4 @@ def temporaryFeatureMenu():
     else:
         print("Unknown input. Please try again.\n")
         temporaryFeatureMenu()
+        printMenu()

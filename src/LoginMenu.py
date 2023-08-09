@@ -1,5 +1,6 @@
 from MainMenu import *
 from loginEncryption import *
+import logging
 
 class Credentials:
     def __init__(self, user, password):
@@ -35,8 +36,8 @@ def printLoginMenu():
                  else:
                       print("Username/Password Invalid!")
                       loginEncrypt()
-            except:
-                 print("Unknown error has occurred!")
+            except Exception as Argument:
+                 logging.exception("Unknown error has occurred!")
                  encryptCheck()
         elif choice == "3": #Change Password
             print("This feature hasn't been implemented yet...")
