@@ -74,26 +74,21 @@ class Database:
                 input("Press ENTER to continue")
                 print("\n")
             elif inp == "3":
-                print("Number of Documents in the database: " + len(self.db['documents']))
+                print("\nNumber of Documents in the database: " + str(len(self.db['documents'])))
                 print("\n")
             elif inp == "4":
                 print("\n")
             elif inp == "5":
                 overallwordCount = 0
                 for doc in self.db['documents']:
-                    print("Here1")
-                    path = "./documents/" + doc['name']
-                    print("Here2")
+                    path = "../documents/" + doc['name']
                     file = open(path, "r")
-                    print("Here3")
                     data = file.read()
-                    print("Here4")
                     lines = data.split()
-                    print("Here5")
                     overallwordCount += len(lines)
                 
                 overallwordCount /= len(self.db['documents'])
-                print("Average word count among documents is: " + overallwordCount)
+                print("\nAverage word count among documents is: " + str(overallwordCount))
                 
                 print("\n")
             elif inp == "6":
