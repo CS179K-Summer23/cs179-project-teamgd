@@ -2,9 +2,15 @@
 from cryptography.fernet import Fernet
 
 def usernameQuery():
- print("Input a username > ", end = "")
- newUsername = input()
- usernameCheck(newUsername)
+ while(True):
+  print("Input a username > ", end = "")
+  newUsername = input()
+  if usernameCheck(newUsername):
+   print("Creating new username...")
+   passwordQuery(newUsername)
+   return
+  else:
+   print("Username is invalid. Please provide different username.")
 
 
 def usernameCheck(newUsername):
@@ -12,12 +18,8 @@ def usernameCheck(newUsername):
   lines = usernameConfirm.readlines()
   for usernameLine in lines[::2]:
    if usernameLine == newUsername + "\n":
-    print("Username is invalid. Please provide different username.")
-    usernameQuery()
-    return
-  print("Creating new username...")
-  usernameConfirm.close()
-  passwordQuery(newUsername)
+    return(False)
+  return(True)
 
 
 def passwordQuery(newUsername):
@@ -52,6 +54,10 @@ def login(username, password):
      return(True)
   loginInfo.close()
   return(False)
+
+
+def deleteUser(username):
+ pass
 
 
 def loginEncrypt():
@@ -91,9 +97,9 @@ def loginDecrypt():
 def encryptCheck():
  with open('login.txt', 'r') as loginCheck:
   lines = loginCheck.readlines()
-  loginCheck.close()
   if len(lines) == 0:
    createLogin("test", "test")
    loginEncrypt()
   if len(lines) > 1:
    loginEncrypt()
+  loginCheck.close()
