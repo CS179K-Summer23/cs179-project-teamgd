@@ -40,7 +40,12 @@ def printLoginMenu():
                  logging.exception("Unknown error has occurred!")
                  encryptCheck()
         elif choice == "3": #Change Password
-            print("This feature hasn't been implemented yet...")
+            encryptCheck()
+            loginDecrypt()
+            print("Enter username > ", end = "")
+            username = input()
+            if not usernameCheck(username):
+                print("Enter the")
         elif choice == "4": #Delete User
             encryptCheck()
             loginDecrypt()
