@@ -51,10 +51,8 @@ def uploadDocument(srcPath, destPath):
     fileExtension = split[1]
 
     if(split1[1] == ""):
-    if(split1[1] == ""):
         destPath += '.json'
 
-    if fileExtension == '.json':
     if fileExtension == '.json':
         f = open(srcPath)
         data = json.load(f)
@@ -63,6 +61,6 @@ def uploadDocument(srcPath, destPath):
         f.close()
     else:
         print("Source File extension not JSON.")
-# 
+
 # convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
