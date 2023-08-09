@@ -48,6 +48,6 @@ def uploadDocument(srcPath, destPath):
         f.close()
     else:
         print("Source File extension not JSON.")
-
+# 
 # convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
