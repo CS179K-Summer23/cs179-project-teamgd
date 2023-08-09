@@ -18,6 +18,18 @@ def convertToJson(csvPath, jsonPath):
         print("Not CSV file")
         return
     
+    split = os.path.splitext(jsonPath)
+
+    fileExtension = split[1]
+
+    print(fileExtension)
+
+    if(fileExtension == '.csv'):
+        jsonPath = jsonPath.replace(".csv", ".json")
+    else:
+        print("Not CSV file")
+        return
+    
     with open(csvPath) as csvf:
         csvReader = csv.DictReader(csvf)
         for rows in csvReader:
@@ -34,12 +46,15 @@ def convertToJson(csvPath, jsonPath):
 def uploadDocument(srcPath, destPath):
     split = os.path.splitext(srcPath)
     split1 = os.path.splitext(destPath)
+    split1 = os.path.splitext(destPath)
 
     fileExtension = split[1]
 
     if(split1[1] == ""):
+    if(split1[1] == ""):
         destPath += '.json'
 
+    if fileExtension == '.json':
     if fileExtension == '.json':
         f = open(srcPath)
         data = json.load(f)
@@ -48,6 +63,6 @@ def uploadDocument(srcPath, destPath):
         f.close()
     else:
         print("Source File extension not JSON.")
-
+# 
 # convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
