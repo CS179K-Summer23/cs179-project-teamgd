@@ -39,8 +39,9 @@ class Database:
             print("1. Find longest document (most characters)")
             print("2. Find document with most occurrences of a specific character")
             print("3. Find number of documents")
-            print("4. Find average size of document")
-            print("5. Return to main menu\n")
+            print("4. Find average file size of document")
+            print("5. Find average word count")
+            print("6. Return to main menu\n")
 
             inp = input("Please input the number corresponding to the desired function to be executed:")
 
@@ -74,10 +75,29 @@ class Database:
                 input("Press ENTER to continue")
                 print("\n")
             elif inp == "3":
+                print("Number of Documents in the database: " + len(self.db['documents']))
                 print("\n")
             elif inp == "4":
                 print("\n")
             elif inp == "5":
+                overallwordCount = 0
+                for doc in self.db['documents']:
+                    print("Here1")
+                    path = "./documents/" + doc['name']
+                    print("Here2")
+                    file = open(path, "r")
+                    print("Here3")
+                    data = file.read()
+                    print("Here4")
+                    lines = data.split()
+                    print("Here5")
+                    overallwordCount += len(lines)
+                
+                overallwordCount /= len(self.db['documents'])
+                print("Average word count among documents is: " + overallwordCount)
+                
+                print("\n")
+            elif inp == "6":
                 print("\n")
                 break
 
