@@ -1,3 +1,5 @@
+from importjsonDoc import *
+
 def printDocumentMenu(filepath):
     while(True):
         print("---------")
@@ -13,7 +15,7 @@ def printDocumentMenu(filepath):
             editDocument()
         elif inp == "2":
             print("\n")
-            convertDocument()
+            convertDocument(filepath)
         elif inp == "3":
             print("\n")
             getDocumentStatistics()
@@ -27,7 +29,14 @@ def printDocumentMenu(filepath):
 def editDocument():
     print("X")
 
-def convertDocument():
+def convertDocument(filepath):
+    print("1. Convert CSV to JSON")
+    print("2. Convert JSON to CSV")
+
+    inp = input("Please input the number corresponding to the desired function to be executed:\n")
+
+    if(inp == '1'):
+        convertToJson(filepath, filepath)
     print("X")
 
 def getDocumentStatistics():
