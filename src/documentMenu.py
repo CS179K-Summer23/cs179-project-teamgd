@@ -28,33 +28,38 @@ def printDocumentMenu(filepath):
 
 
 def editDocument(filepath):
-    # #set up window
-    # texteditor = Tk()
-    # texteditor.geometry("200x400")
-    # texteditor.title("Text Editor")
-    # scrollbar = Scrollbar(texteditor)
-    # scrollbar.pack(side=RIGHT, fill=Y)
+    #set up window
+    texteditor = Tk()
+    texteditor.geometry("400x400")
+    texteditor.title("Text Editor")
+    scrollbar = Scrollbar(texteditor)
+    scrollbar.pack(side=RIGHT, fill=Y)
     
-    # text = Text(texteditor, yscrollcommand=scrollbar.set)
-    # text.pack(fill=BOTH)
-    # scrollbar.config(command=text.yview)
-    # #set up buttons
-    # mymenu = Menu(texteditor)
-    # texteditor.config(menu=mymenu)
-    # filemenu = Menu(mymenu, tearoff=False)
-    # mymenu.add_cascade(label="File", menu=filemenu)
-    # filemenu.add_command(label="Load File", command=open_file)
-    # filemenu.add_command(label="Save")
-    # filemenu.add_command(label="Exit", command=texteditor.quit)
+    text = Text(texteditor, yscrollcommand=scrollbar.set)
+    text.pack(fill=BOTH)
+    scrollbar.config(command=text.yview)
     
-    # #set up file
-    # def open_file():
-    #     textfile = open(filepath, 'r')
-    #     content = textfile.read()
-    #     text.insert(END, content)
-    #     text.close()
-    # texteditor.mainloop()
-    print("X")
+    #set up file
+    def open_file():
+        textfile = open(filepath, 'r')
+        content = textfile.read()
+        text.insert(END, content)
+        textfile.close()
+    #save file
+    def save_file():
+        textfile = open(filepath, 'w')
+        textfile.write(text.get(1.0, END))
+        textfile.close()
+    #set up buttons
+    mymenu = Menu(texteditor)
+    texteditor.config(menu=mymenu)
+    filemenu = Menu(mymenu, tearoff=False)
+    mymenu.add_cascade(label="File", menu=filemenu)
+    filemenu.add_command(label="Load File", command=open_file)
+    filemenu.add_command(label="Save", command=save_file)
+    
+    open_file()
+    texteditor.mainloop()
 
     
 
