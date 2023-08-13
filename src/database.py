@@ -48,7 +48,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = "./documents/" + doc['name']
+                    path = doc['name'] #removed "../documents"
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = len(data)
@@ -63,7 +63,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = "./documents/" + doc['name']
+                    path = doc['name'] #removed "../documents"
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = data.count(inp)
@@ -77,7 +77,18 @@ class Database:
                 print("\nNumber of Documents in the database: " + str(len(self.db['documents'])))
                 print("\n")
             elif inp == "4":
+                averagefileSize = 0
+                for doc in self.db['documents']:
+                    path = "../documents/" + doc['name']
+                    averagefileSize += os.path.getsize(path)
+                
+                averagefileSize /= len(self.db['documents'])
+                print("\nAverage file size among documents is: " + str(averagefileSize) + " bytes.")
+                
                 print("\n")
+            elif inp == "6":
+                print("\n")
+                break
             elif inp == "5":
                 overallwordCount = 0
                 for doc in self.db['documents']:

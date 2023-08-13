@@ -99,8 +99,8 @@ def uploadDoc():
     
     # The uploadDocument function calls convertToJson function
     uploadDocument(srcPath, destPath) 
-
-    print("upload document")
+    db.addFile(destPath)
+    print("Uploaded document")
 
 def deleteDocument():
     db.printDocs()

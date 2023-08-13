@@ -8,10 +8,11 @@ parentpath = os.path.dirname(currentpath)
 documentlist = []
 
 class DataStat:
-    def __init__(self, name, extension, wordcount, tcreated, taccessed):
+    def __init__(self, name, extension, wordcount, filesize, tcreated, taccessed):
         self.name = name
         self.extension = extension
         self.wordcount = wordcount
+        self.filesize = filesize
         self.tcreated = tcreated
         self.taccessed = taccessed
     def printStat(self):
@@ -22,9 +23,10 @@ def populateDataStat(filename):
     file_name = str(file[0])
     file_extension = str(file[1])
     file_wordcount = wordCount(filename)
+    file_filesize = str(os.path.getsize(filename))
     file_tcreated = createtime(filename)
     file_taccessed = lastaccessedtime(filename)
-    tempfile = DataStat(file_name, file_extension, file_wordcount, file_tcreated, file_taccessed)
+    tempfile = DataStat(file_name, file_extension, file_wordcount, file_filesize, file_tcreated, file_taccessed)
     documentlist.append(tempfile)
 
 
