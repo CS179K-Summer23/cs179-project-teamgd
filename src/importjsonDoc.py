@@ -3,14 +3,11 @@ import csv
 import os
 
 def convertToJson(csvPath, jsonPath):
-    data = {}
-    index = 0
+    data = []
     
     split = os.path.splitext(jsonPath)
 
     fileExtension = split[1]
-
-    print(fileExtension)
 
     if(fileExtension == '.csv'):
         jsonPath = jsonPath.replace(".csv", ".json")
@@ -18,24 +15,11 @@ def convertToJson(csvPath, jsonPath):
         print("Not CSV file")
         return
     
-    split = os.path.splitext(jsonPath)
-
-    fileExtension = split[1]
-
-    print(fileExtension)
-
-    if(fileExtension == '.csv'):
-        jsonPath = jsonPath.replace(".csv", ".json")
-    else:
-        print("Not CSV file")
-        return
-    
-    with open(csvPath) as csvf:
+    with open(csvPath,"r") as csvf:
         csvReader = csv.DictReader(csvf)
         for rows in csvReader:
             # Currently uses Arbitrary key 'index'
-            data[index] = rows
-            index += 1
+            data.append(rows)
             
     with open(jsonPath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
