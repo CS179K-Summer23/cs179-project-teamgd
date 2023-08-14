@@ -32,7 +32,7 @@
 ## User Stories
   - As a developer, I want users to have an interface to access the database
   - As a developer, I want to enable users to edit, upload, and delete their documents
-  - As a developer, I want userst to query documents in the database
+  - As a developer, I want users to query documents in the database
   - As a developer, I want to enable users to convert imports and export files to and from Json
   - As a developer, I want older versions of stored documents to be available for users to access
   - As a developer, I want users to be able to sort their documents
