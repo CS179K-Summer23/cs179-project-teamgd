@@ -1,5 +1,6 @@
 from importjsonDoc import *
 from tkinter import *
+from DocumentStat import *
 
 def printDocumentMenu(filepath):
     while(True):
@@ -10,6 +11,7 @@ def printDocumentMenu(filepath):
         print("2. convert document")
         print("3. retrieve document statistics")
         print("4. return to main menu\n")
+        # print(filepath)
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
             print("\n")
@@ -19,7 +21,7 @@ def printDocumentMenu(filepath):
             convertDocument(filepath)
         elif inp == "3":
             print("\n")
-            getDocumentStatistics()
+            getDocumentStatistics(filepath)
         elif inp == "4":
             print("\n")
             break
@@ -73,5 +75,5 @@ def convertDocument(filepath):
         convertToJson(filepath, filepath)
     print("X")
 
-def getDocumentStatistics():
-    print("X")
+def getDocumentStatistics(filepath):
+    populateDataStat(filepath)
