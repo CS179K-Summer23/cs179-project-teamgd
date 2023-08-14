@@ -107,8 +107,22 @@ def deleteUser(username):
  loginInfo.close()
 
 
-def loginEncrypt():
- path = getPath("login.txt")
+def adminCheck(password):
+ loginDecrypt("admin")
+ path = getPath("admin.txt")
+ with open(path, 'r') as adminInfo:
+  lines = adminInfo.readlines()
+ adminInfo.close()
+ for line in lines:
+  if password == line.strip('\n'):
+   loginEncrypt("admin")
+   return True
+ loginEncrypt("admin")
+ return False
+
+
+def loginEncrypt(filename):
+ path = getPath(str(filename) + ".txt")
  keyPath = getPath("filekey.key")
  with open(keyPath, 'rb') as filekey:
   key = filekey.read()
@@ -126,8 +140,8 @@ def loginEncrypt():
  encryptedFile.close()
 
 
-def loginDecrypt():
- path = getPath("login.txt")
+def loginDecrypt(filename):
+ path = getPath(str(filename) + ".txt")
  keyPath = getPath("filekey.key")
  with open(keyPath, 'rb') as filekey:
   key = filekey.read()
@@ -153,5 +167,5 @@ def encryptCheck():
    createLogin("test", "test")
    loginEncrypt()
   if len(lines) > 1:
-   loginEncrypt()
+   loginEncrypt("login")
   loginCheck.close()

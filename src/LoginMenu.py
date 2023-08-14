@@ -17,9 +17,9 @@ def printLoginMenu():
         choice = input()
         if choice == "1": #Create New Account
             encryptCheck()
-            loginDecrypt()
+            loginDecrypt("login")
             usernameQuery()
-            loginEncrypt()
+            loginEncrypt("login")
             print("New login successfully created!")
         elif choice == "2": #Login
             print("Username: ", end = "")
@@ -27,21 +27,21 @@ def printLoginMenu():
             print("Password: ", end = "")
             password = input()
             encryptCheck()
-            loginDecrypt()		
+            loginDecrypt("login")		
             try:
                  if(login(user, password)):
                       print("Login Successful!")
-                      loginEncrypt()
+                      loginEncrypt("login")
                       printMenu()
                  else:
                       print("Username/Password Invalid!")
-                      loginEncrypt()
+                      loginEncrypt("login")
             except Exception as Argument:
                  logging.exception("Unknown error has occurred!")
                  encryptCheck()
         elif choice == "3": #Change Password
             encryptCheck()
-            loginDecrypt()
+            loginDecrypt("login")
             print("Enter username > ", end = "")
             username = input()
             if not usernameCheck(username):
@@ -56,22 +56,28 @@ def printLoginMenu():
                     print("Password is incorrect!")
             else:
                 print("User does not exist!")
+            loginEncrypt("login")
         elif choice == "4": #Delete User
-            encryptCheck()
-            loginDecrypt()
-            print("Enter the username of the user you want to delete > ", end = "")
-            username = input()
-            if not usernameCheck(username):
-                print("Enter password to confirm deletion > ", end = "")
-                password = input()
-                if login(username, password):
-                    deleteUser(username)
-                    print("User successfully deleted!")
-                else:
-                    print("Password is incorrect!")
+            print("Enter the admin password to continue > ", end = "")
+            adminPassword = input()
+            if not adminCheck(adminPassword):
+                print("Admin password is invalid! You may not delete a user.")
             else:
-                print("User does not exist!")
-            loginEncrypt()
+                encryptCheck()
+                loginDecrypt("login")
+                print("Enter the username of the user you want to delete > ", end = "")
+                username = input()
+                if not usernameCheck(username):
+                    print("Enter user's password to confirm deletion > ", end = "")
+                    password = input()
+                    if login(username, password):
+                        deleteUser(username)
+                        print("User successfully deleted!")
+                    else:
+                        print("Password is incorrect!")
+                else:
+                    print("User does not exist!")
+                loginEncrypt("login")
         elif choice == "5": #Exit
             quit()
 
