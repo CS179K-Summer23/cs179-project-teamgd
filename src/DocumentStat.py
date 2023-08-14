@@ -4,6 +4,7 @@ import json
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
+documentpath = parentpath + "/documents/"
 
 documentlist = []
 
