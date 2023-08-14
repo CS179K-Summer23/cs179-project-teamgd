@@ -9,11 +9,11 @@ class Credentials:
 
 
 def printLoginMenu():
-    menu_options = ["Hello, please choose an option", "1. Create New Account", "2. Login", "3. Change Password", "4. Delete User", "5. Exit"]
+    menu_options = ["\n-------------------------------", "Hello, please choose an option:", "-------------------------------", "1. Create New Account", "2. Login", "3. Change Password", "4. Delete User", "5. Exit"]
     while(True):
         for option in menu_options:
             print(option)
-        print("Select an option: ", end = "")
+        print("\nSelect an option: ", end = "")
         choice = input()
         if choice == "1": #Create New Account
             encryptCheck()
@@ -40,7 +40,22 @@ def printLoginMenu():
                  logging.exception("Unknown error has occurred!")
                  encryptCheck()
         elif choice == "3": #Change Password
-            print("This feature hasn't been implemented yet...")
+            encryptCheck()
+            loginDecrypt()
+            print("Enter username > ", end = "")
+            username = input()
+            if not usernameCheck(username):
+                print("Enter old password > ", end = "")
+                oldPassword = input()
+                if login(username, oldPassword):
+                    print("Enter new password > ", end = "")
+                    newPassword = input()
+                    changePassword(username, newPassword)
+                    print("Password successfully changed!")
+                else:
+                    print("Password is incorrect!")
+            else:
+                print("User does not exist!")
         elif choice == "4": #Delete User
             encryptCheck()
             loginDecrypt()
@@ -52,6 +67,8 @@ def printLoginMenu():
                 if login(username, password):
                     deleteUser(username)
                     print("User successfully deleted!")
+                else:
+                    print("Password is incorrect!")
             else:
                 print("User does not exist!")
             loginEncrypt()
