@@ -7,6 +7,7 @@ db = Database()
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
+documentpath = parentpath + "/documents/"
 
 def printMenu():
     while (True):
@@ -52,7 +53,8 @@ def openDocument():
     db.printDocs()
     print("Please type the number of the document you want to open")
     choice = int(input())
-    filepath = parentpath + "/documents/" + db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
+    filepath = db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
+    # removed parenth path 
     printDocumentMenu(filepath)
     
 def uploadDoc():
@@ -69,17 +71,18 @@ def uploadDoc():
             while(True):
                 print("1. Return to Main Menu")
                 print("2. Change file you want to upload\n")
-                destPath = input("Input where you want to upload and file name: ")
-                split1 = os.path.splitext(destPath)
+                print("Uploading file to: " + documentpath + "\n")
+                destPath = input("File name: ")
+                split1 = os.path.splitext(documentpath + destPath)
                 
-                if(os.path.isfile(destPath) or os.path.isfile(destPath + '.json')):
+                if(os.path.isfile(documentpath + destPath) or os.path.isfile(documentpath + destPath + '.json')):
                     print("File already exists")
                 elif(destPath == "1"):
                     return
                 elif(destPath == "2"):
                     break
-                elif(os.path.isdir(destPath)):
-                    print("Directory exists, need filename\n")
+                # elif(os.path.isdir(destPath)):
+                #     print("Directory exists, need filename\n")
                 elif(len(split1[1]) == 0):
                     flag = 1
                     break
@@ -98,7 +101,7 @@ def uploadDoc():
 
     
     # The uploadDocument function calls convertToJson function
-    uploadDocument(srcPath, destPath) 
+    uploadDocument(srcPath, documentpath + destPath) 
     db.addFile(destPath)
     print("Uploaded document")
 
@@ -118,7 +121,7 @@ def listDocuments():
 
 def pinDocument():
     db.printDocs()
-    print("Please type the number of the document you want to open")
+    print("Please type the number of the document you want to pin")
     choice = int(input())
     db.pinDoc(db.getDoc(choice)['name'])
 

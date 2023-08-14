@@ -4,6 +4,7 @@ import os
 class Database:
     currentpath = os.getcwd()
     parentpath = os.path.dirname(currentpath)
+    documentpath = parentpath + "/documents/"
     db = {}
     docnum = 1
     pinnedDocs = []
@@ -59,7 +60,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = self.parentpath + "/documents/" + doc['name']
+                    path = self.documentpath + doc['name']
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = len(data)
@@ -74,7 +75,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = doc['name']
+                    path = self.documentpath + doc['name']
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = data.count(inp)
@@ -90,7 +91,7 @@ class Database:
             elif inp == "4":
                 averagefileSize = 0
                 for doc in self.db['documents']:
-                    path = self.parentpath + "/documents/" + doc['name']
+                    path = self.documentpath + doc['name']
                     averagefileSize += os.path.getsize(path)
                 
                 averagefileSize /= len(self.db['documents'])
@@ -103,7 +104,7 @@ class Database:
             elif inp == "5":
                 overallwordCount = 0
                 for doc in self.db['documents']:
-                    path = self.parentpath + "/documents/" + doc['name']
+                    path = self.documentpath + doc['name']
                     file = open(path, "r")
                     data = file.read()
                     lines = data.split()
@@ -122,6 +123,7 @@ class Database:
         for doc in self.db['documents']:
             if doc['name'] == fileName:
                 doc['pinned'] = 1
+        self.updateJson()
 
     
     def addFile(self, fileName):
@@ -167,7 +169,7 @@ class Database:
                 doc['docnum'] = doc['docnum']-1       
         #decrement docnum
         self.docnum = self.docnum-1
-        path = self.parentpath + "/documents/" + fileName
+        path = self.documentpath + fileName
         os.remove(path)
         self.updateJson()
         
