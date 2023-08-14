@@ -54,6 +54,7 @@ def convertToCsv(jsonPath):
         temp = inputSplit[tempLength - 1]
         temp2 = temp.split(".")
         fileName = temp2[0] + ".csv" #should be inputSplit[0]
+        os.chdir("../documents")
         csvFile = open(fileName, "w")
         csvWriter = csv.writer(csvFile)
         
@@ -70,6 +71,7 @@ def convertToCsv(jsonPath):
         #destinationPath = parentpath + "/documents/" + fileName
         db.addFile(fileName) #doesn't save it to correct directory but it saves
         print("success!")
+        os.chdir("../src")
     else:
         print("Unable to read input of json file, please try again.\n")
 
