@@ -42,7 +42,19 @@ def printLoginMenu():
         elif choice == "3": #Change Password
             print("This feature hasn't been implemented yet...")
         elif choice == "4": #Delete User
-            print("This feature hasn't been implemented yet...")
+            encryptCheck()
+            loginDecrypt()
+            print("Enter the username of the user you want to delete > ", end = "")
+            username = input()
+            if not usernameCheck(username):
+                print("Enter password to confirm deletion > ", end = "")
+                password = input()
+                if login(username, password):
+                    deleteUser(username)
+                    print("User successfully deleted!")
+            else:
+                print("User does not exist!")
+            loginEncrypt()
         elif choice == "5": #Exit
             quit()
 

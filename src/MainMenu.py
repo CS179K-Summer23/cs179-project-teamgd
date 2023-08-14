@@ -56,36 +56,51 @@ def openDocument():
     printDocumentMenu(filepath)
     
 def uploadDoc():
-    srcPath = input("Input file you want to upload: ")
-    split = os.path.splitext(srcPath)
-    
-    if(os.path.isfile(srcPath) or split[1] == '.json' or split[1] == '.csv'):
-    
-        destPath = input("Input where you want to upload and file name: ")
-        split1 = os.path.splitext(destPath)
-
-        if(os.path.isfile(destPath) or os.path.isfile(destPath + '.json')):
-            print("File already exists")
+    flag = 0
+    while(True):
+        if(flag == 1):
+            break
+        print("1. Return to Main Menu")
+        srcPath = input("Input file you want to upload: ")
+        split = os.path.splitext(srcPath)
+        
+        if(os.path.isfile(srcPath) or split[1] == '.json' or split[1] == '.csv'):
+            print("\n")
+            while(True):
+                print("1. Return to Main Menu")
+                print("2. Change file you want to upload\n")
+                destPath = input("Input where you want to upload and file name: ")
+                split1 = os.path.splitext(destPath)
+                
+                if(os.path.isfile(destPath) or os.path.isfile(destPath + '.json')):
+                    print("File already exists")
+                elif(destPath == "1"):
+                    return
+                elif(destPath == "2"):
+                    break
+                elif(os.path.isdir(destPath)):
+                    print("Directory exists, need filename\n")
+                elif(len(split1[1]) == 0):
+                    flag = 1
+                    break
+                elif(split1[1] != '.json'):
+                    print("Invalid file extension\n")
+                elif(not destPath):
+                    print("Invalid Input\n")
+                else:
+                    flag = 1
+                    break
+        elif(srcPath == "1"):
             return
-        elif(os.path.isdir(destPath)):
-            print("Directory exists, need filename")
-            return
-        elif(split1[1] != '.json'):
-            print("Invalid file extension")
-            return
-        elif(not destPath):
-            print("Invalid Input")
-            return
-    else:
-        print("File does not exist or Invalid input")
-        return
+        else:
+            print("File does not exist or Invalid input\n")
         
 
     
     # The uploadDocument function calls convertToJson function
     uploadDocument(srcPath, destPath) 
-
-    print("upload document")
+    db.addFile(destPath)
+    print("Uploaded document")
 
 def deleteDocument():
     db.printDocs()

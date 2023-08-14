@@ -38,8 +38,9 @@ class Database:
             print("1. Find longest document (most characters)")
             print("2. Find document with most occurrences of a specific character")
             print("3. Find number of documents")
-            print("4. Find average size of document")
-            print("5. Return to main menu\n")
+            print("4. Find average file size of document")
+            print("5. Find average word count")
+            print("6. Return to main menu\n")
 
             inp = input("Please input the number corresponding to the desired function to be executed:")
 
@@ -47,7 +48,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = "./documents/" + doc['name']
+                    path = doc['name'] #removed "../documents"
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = len(data)
@@ -62,7 +63,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = "./documents/" + doc['name']
+                    path = doc['name'] #removed "../documents"
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = data.count(inp)
@@ -73,10 +74,35 @@ class Database:
                 input("Press ENTER to continue")
                 print("\n")
             elif inp == "3":
+                print("\nNumber of Documents in the database: " + str(len(self.db['documents'])))
                 print("\n")
             elif inp == "4":
+                averagefileSize = 0
+                for doc in self.db['documents']:
+                    path = "../documents/" + doc['name']
+                    averagefileSize += os.path.getsize(path)
+                
+                averagefileSize /= len(self.db['documents'])
+                print("\nAverage file size among documents is: " + str(averagefileSize) + " bytes.")
+                
                 print("\n")
+            elif inp == "6":
+                print("\n")
+                break
             elif inp == "5":
+                overallwordCount = 0
+                for doc in self.db['documents']:
+                    path = "../documents/" + doc['name']
+                    file = open(path, "r")
+                    data = file.read()
+                    lines = data.split()
+                    overallwordCount += len(lines)
+                
+                overallwordCount /= len(self.db['documents'])
+                print("\nAverage word count among documents is: " + str(overallwordCount))
+                
+                print("\n")
+            elif inp == "6":
                 print("\n")
                 break
 
