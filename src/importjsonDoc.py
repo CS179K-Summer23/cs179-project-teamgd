@@ -47,4 +47,4 @@ def uploadDocument(srcPath, destPath):
         print("Source File extension not JSON.")
 
 # convertToJson("../documents/test.csv", "../documents/test.csv")
-# uploadDocument("test2.json", "new2.json")
+# uploadDocument("../documents/test.json", "../documents/new2.json")
