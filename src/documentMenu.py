@@ -70,22 +70,14 @@ def convertDocument(filepath):
     print("2. Convert JSON to CSV")
 
     inp = input("Please input the number corresponding to the desired function to be executed:\n")
-
-    """print("-------------------")
-    print("Conversion Options:")
-    print("-------------------")
-    print("1. JSON to CSV")
-    print("2. CSV to JSON\n")
-    inp = input("Please input the number corresponding to the desired function to be executed:\n")
-    if inp == "1":
-        print(filepath)
-        length = len(filepath)
-        check = filepath[length - 5:]
-        
-        if check == ".json":"""
             
     if(inp == '1'):
         convertToJson(filepath, filepath)
+    elif(inp == '2'):
+        convertToCsv(filepath)
+    else:
+        print("Unknown input, please try again.\n")
+        convertDocument(filepath)
 
 def getDocumentStatistics():
     print("X")
