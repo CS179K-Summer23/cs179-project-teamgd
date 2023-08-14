@@ -56,12 +56,27 @@ def login(username, password):
   return(False)
 
 
+def changePassword(username, newPassword):
+ with open('login.txt', 'r') as loginInfo:
+  lines = loginInfo.readlines()
+ loginInfo.close()
+ with open('login.txt', 'w') as loginInfo:
+  flag = True
+  for line in lines:
+   if not flag:
+    loginInfo.write(newPassword)
+    loginInfo.write("\n")
+    flag = True
+   else:
+    loginInfo.write(line)
+   if line.strip('\n') == username:
+    flag = False
+ loginInfo.close()
+
+
 def deleteUser(username):
  with open('login.txt', 'r') as loginInfo:
   lines = loginInfo.readlines()
- for usernameLine in lines:
-  if usernameLine.strip('\n') == username:
-   passIndex = lines.index(usernameLine)
  loginInfo.close()
  with open('login.txt', 'w') as loginInfo:
   flag = True

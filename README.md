@@ -28,3 +28,12 @@
   - Ability to pin certain documents to make them more accessible based on user’s priorities
   - Sort documents based on filters: size, data accessed, alphabetical, date created
   - Get statistics about document (number characters, words)
+    
+## User Stories
+  - As a developer, I want users to have an interface to access the database
+  - As a developer, I want to enable users to edit, upload, and delete their documents
+  - As a developer, I want users to query documents in the database
+  - As a developer, I want to enable users to convert imports and export files to and from Json
+  - As a developer, I want older versions of stored documents to be available for users to access
+  - As a developer, I want users to be able to sort their documents
+  - As a developer, I want to enforce customers logging in with a username and password to view their documents

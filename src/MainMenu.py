@@ -54,7 +54,7 @@ def openDocument():
     choice = int(input())
     filepath = parentpath + "/documents/" + db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
-
+    
 def uploadDoc():
     flag = 0
     while(True):
@@ -118,6 +118,9 @@ def listDocuments():
 
 def pinDocument():
     db.printDocs()
+    print("Please type the number of the document you want to open")
+    choice = int(input())
+    db.pinDoc(db.getDoc(choice)['name'])
 
 def getDatabaseStats():
     db.printDBMenu()
