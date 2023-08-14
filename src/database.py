@@ -129,6 +129,7 @@ class Database:
             if doc['name'] == fileName:
                 print("Duplicate file name: " + fileName)
                 print("File not added")
+                #should have a return statement of sorts that exits function so that remainder of code doesn't run
 
         new_entry = {
             "name": fileName,

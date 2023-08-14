@@ -54,7 +54,7 @@ def openDocument():
     choice = int(input())
     filepath = parentpath + "/documents/" + db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
-
+    
 def uploadDoc():
     flag = 0
     while(True):
