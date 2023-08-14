@@ -4,13 +4,10 @@ import os
 
 def convertToJson(csvPath, jsonPath):
     data = []
-    index = 0
     
     split = os.path.splitext(jsonPath)
 
     fileExtension = split[1]
-
-    print(fileExtension)
 
     if(fileExtension == '.csv'):
         jsonPath = jsonPath.replace(".csv", ".json")
@@ -18,13 +15,11 @@ def convertToJson(csvPath, jsonPath):
         print("Not CSV file")
         return
     
-    with open(csvPath) as csvf:
+    with open(csvPath,"r") as csvf:
         csvReader = csv.DictReader(csvf)
         for rows in csvReader:
             # Currently uses Arbitrary key 'index'
-            Dict = dict(rows)
-            data.append(Dict)
-            index += 1
+            data.append(rows)
             
     with open(jsonPath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
@@ -51,5 +46,5 @@ def uploadDocument(srcPath, destPath):
     else:
         print("Source File extension not JSON.")
 
-convertToJson("../documents/test.csv", "../documents/test.csv")
+# convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
