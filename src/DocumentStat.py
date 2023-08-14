@@ -4,14 +4,16 @@ import json
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
+documentpath = parentpath + "/documents/"
 
 documentlist = []
 
 class DataStat:
-    def __init__(self, name, extension, wordcount, tcreated, taccessed):
+    def __init__(self, name, extension, wordcount, filesize, tcreated, taccessed):
         self.name = name
         self.extension = extension
         self.wordcount = wordcount
+        self.filesize = filesize
         self.tcreated = tcreated
         self.taccessed = taccessed
     def printStat(self):
@@ -22,10 +24,17 @@ def populateDataStat(filename):
     file_name = str(file[0])
     file_extension = str(file[1])
     file_wordcount = wordCount(filename)
+    file_filesize = str(os.path.getsize(filename))
     file_tcreated = createtime(filename)
     file_taccessed = lastaccessedtime(filename)
-    tempfile = DataStat(file_name, file_extension, file_wordcount, file_tcreated, file_taccessed)
-    documentlist.append(tempfile)
+    print("File Name: " + file_name)
+    print("File Extension: " + file_extension)
+    print("Word Count: " + file_wordcount)
+    print("File Size: " + file_filesize + " bytes")
+    print("Time Created: " + file_tcreated)
+    print("Time Accessed: " + file_taccessed)
+    tempfile = DataStat(file_name, file_extension, file_wordcount, file_filesize, file_tcreated, file_taccessed)
+    # documentlist.append(tempfile)
 
 
 def createtime(filename):
@@ -52,7 +61,7 @@ def wordCount(filename):
     strwordnum = str(wordnum)
     return strwordnum
 
-populateDataStat(parentpath + "/documents/text.txt")
+# populateDataStat(parentpath + "/documents/text.txt")
 
 with open(parentpath + "/data/documentstats.json", "w") as outfile:
     for DataStat in documentlist:
