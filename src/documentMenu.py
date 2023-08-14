@@ -1,12 +1,14 @@
+import json
+import csv
 from importjsonDoc import *
 from tkinter import *
 from DocumentStat import *
 
 def printDocumentMenu(filepath):
     while(True):
-        print("---------")
+        print("--------------")
         print("Document Menu:")
-        print("---------")
+        print("--------------")
         print("1. edit document")
         print("2. convert document")
         print("3. retrieve document statistics")
@@ -70,10 +72,14 @@ def convertDocument(filepath):
     print("2. Convert JSON to CSV")
 
     inp = input("Please input the number corresponding to the desired function to be executed:\n")
-
+            
     if(inp == '1'):
         convertToJson(filepath, filepath)
-    print("X")
+    elif(inp == '2'):
+        convertToCsv(filepath)
+    else:
+        print("Unknown input, please try again.\n")
+        convertDocument(filepath)
 
 def getDocumentStatistics(filepath):
     populateDataStat(filepath)

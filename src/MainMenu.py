@@ -55,7 +55,7 @@ def openDocument():
     filepath = db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
     # removed parenth path 
     printDocumentMenu(filepath)
-
+    
 def uploadDoc():
     flag = 0
     while(True):
