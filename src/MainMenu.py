@@ -54,7 +54,7 @@ def openDocument():
     choice = int(input())
     filepath = parentpath + "/documents/" + db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
-
+    
 def uploadDoc():
     srcPath = input("Input file you want to upload: ")
     split = os.path.splitext(srcPath)

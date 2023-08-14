@@ -1,8 +1,11 @@
+import json
+import csv
+
 def printDocumentMenu(filepath):
     while(True):
-        print("---------")
+        print("--------------")
         print("Document Menu:")
-        print("---------")
+        print("--------------")
         print("1. edit document")
         print("2. convert document")
         print("3. retrieve document statistics")
@@ -13,7 +16,7 @@ def printDocumentMenu(filepath):
             editDocument()
         elif inp == "2":
             print("\n")
-            convertDocument()
+            convertDocument(filepath)
         elif inp == "3":
             print("\n")
             getDocumentStatistics()
@@ -27,8 +30,19 @@ def printDocumentMenu(filepath):
 def editDocument():
     print("X")
 
-def convertDocument():
-    print("X")
-
+def convertDocument(filepath):
+    """print("-------------------")
+    print("Conversion Options:")
+    print("-------------------")
+    print("1. JSON to CSV")
+    print("2. CSV to JSON\n")
+    inp = input("Please input the number corresponding to the desired function to be executed:\n")
+    if inp == "1":
+        print(filepath)
+        length = len(filepath)
+        check = filepath[length - 5:]
+        
+        if check == ".json":"""
+            
 def getDocumentStatistics():
     print("X")
