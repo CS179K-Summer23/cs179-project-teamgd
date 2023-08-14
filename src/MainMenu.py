@@ -118,6 +118,9 @@ def listDocuments():
 
 def pinDocument():
     db.printDocs()
+    print("Please type the number of the document you want to open")
+    choice = int(input())
+    db.pinDoc(db.getDoc(choice)['name'])
 
 def getDatabaseStats():
     db.printDBMenu()

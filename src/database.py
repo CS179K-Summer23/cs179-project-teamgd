@@ -6,20 +6,31 @@ class Database:
     parentpath = os.path.dirname(currentpath)
     db = {}
     docnum = 1
+    pinnedDocs = []
     def __init__(self):
         with open(self.parentpath + "/data/docinfo.json", "r") as f:
             if (f):
                 self.db = json.load(f)
             self.docnum = len(self.db['documents'])+1
+            for doc in self.db['documents']:
+                if 'pinned' in doc and doc['pinned']:
+                    self.pinnedDocs.append(doc['name'])
 
     def printDocs(self):
         print("List of your documents: ")
         self.db['documents'] = sorted(self.db['documents'], key=lambda x: x['docnum'])
+
         for i in range(1, self.docnum):
             for doc in self.db['documents']:
-                if (i == doc['docnum']):
+                if (i == doc['docnum'] and doc['pinned'] == 1):
+                    print("Pinned: " + str(doc['docnum']) + ". " + doc['name'])
+
+        for i in range(1, self.docnum):
+            for doc in self.db['documents']:
+                if (i == doc['docnum'] and doc['pinned'] == 0):
                     print(str(doc['docnum']) + ". " + doc['name'])
         print("\n")
+
 
     def getDoc(self, choice):
         if choice > self.docnum-1:
@@ -48,7 +59,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = doc['name'] #removed "../documents"
+                    path = self.parentpath + "/documents/" + doc['name']
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = len(data)
@@ -63,7 +74,7 @@ class Database:
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = doc['name'] #removed "../documents"
+                    path = doc['name']
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = data.count(inp)
@@ -79,7 +90,7 @@ class Database:
             elif inp == "4":
                 averagefileSize = 0
                 for doc in self.db['documents']:
-                    path = "../documents/" + doc['name']
+                    path = self.parentpath + "/documents/" + doc['name']
                     averagefileSize += os.path.getsize(path)
                 
                 averagefileSize /= len(self.db['documents'])
@@ -92,7 +103,7 @@ class Database:
             elif inp == "5":
                 overallwordCount = 0
                 for doc in self.db['documents']:
-                    path = "../documents/" + doc['name']
+                    path = self.parentpath + "/documents/" + doc['name']
                     file = open(path, "r")
                     data = file.read()
                     lines = data.split()
@@ -106,6 +117,12 @@ class Database:
                 print("\n")
                 break
 
+    def pinDoc(self, fileName):
+        self.pinnedDocs.append(fileName)
+        for doc in self.db['documents']:
+            if doc['name'] == fileName:
+                doc['pinned'] = 1
+
     
     def addFile(self, fileName):
         for doc in self.db['documents']:
@@ -115,7 +132,8 @@ class Database:
 
         new_entry = {
             "name": fileName,
-            "docnum": self.docnum
+            "docnum": self.docnum,
+            "pinned": 0
         }
         self.db['documents'].append(new_entry)
 
