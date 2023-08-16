@@ -1,5 +1,6 @@
 from MainMenu import *
 from loginEncryption import *
+from loginCredentials import *
 import logging
 
 class Credentials:
@@ -9,7 +10,7 @@ class Credentials:
 
 
 def printLoginMenu():
-    menu_options = ["\n-------------------------------", "Hello, please choose an option:", "-------------------------------", "1. Create New Account", "2. Login", "3. Change Password", "4. Delete User", "5. Exit"]
+    menu_options = ["\n-------------------------------", "Hello, please choose an option:", "-------------------------------", "1. Create New Account", "2. Login", "3. Change Credentials", "4. Forgot Password", "5. Exit"]
     while(True):
         for option in menu_options:
             print(option)
@@ -39,7 +40,23 @@ def printLoginMenu():
             except Exception as Argument:
                  logging.exception("Unknown error has occurred!")
                  encryptCheck()
-        elif choice == "3": #Change Password
+        elif choice == "3": #Change Credentials
+            printCredentialMenu()
+        elif choice == "4": #Forgot Password
+            pass
+        elif choice == "5": #Exit
+            quit()
+
+def printCredentialMenu():
+    menu_options = ["\n---------------------------------------------------", "Please choose a credential that you want to change:", "---------------------------------------------------", "1. Change Username", "2. Change Password", "3. Change Security Questions", "4. Delete User", "5. Go Back"]
+    while(True):
+        for option in menu_options:
+            print(option)
+        print("\nSelect an option: ", end = "")
+        choice = input()
+        if choice == "1": #Change username
+            pass
+        elif choice == "2": #Change password
             encryptCheck()
             loginDecrypt("login")
             print("Enter username > ", end = "")
@@ -57,6 +74,8 @@ def printLoginMenu():
             else:
                 print("User does not exist!")
             loginEncrypt("login")
+        elif choice == "3": #Change Security Questions
+            pass
         elif choice == "4": #Delete User
             print("Enter the admin password to continue > ", end = "")
             adminPassword = input()
@@ -78,9 +97,8 @@ def printLoginMenu():
                 else:
                     print("User does not exist!")
                 loginEncrypt("login")
-        elif choice == "5": #Exit
-            quit()
-
+        elif choice == "5": #Go Back
+             return
 
 if __name__ == "__main__":
     printLoginMenu()
