@@ -16,7 +16,7 @@ def convertToJson(csvPath, jsonPath):
         for rows in csvReader:
             # Currently uses Arbitrary key 'index'
             data.append(rows)
-            
+    
     with open(jsonPath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
     
@@ -72,6 +72,9 @@ def validateSchema(jsonPath):
     data = json.load(f)
     # Takes first dict in list and makes that the schema for the file
     schema = data[0]
+    currlines = 0
+    linesperObject = len(schema.keys()) + 2
+    
     for i in data:
         if (i.keys() != schema.keys()):
             print("Keys do not match schema")
@@ -80,9 +83,8 @@ def validateSchema(jsonPath):
     f.close()
     return True
 
-# Currently just makes sure the json format is in place
 def validateJSON(jsonPath):
-    # First goes through the format of the file and validates it 
+    # First, goes through the format of the file and validates it 
     f = open(jsonPath)
     try:
         json.load(f)
@@ -92,7 +94,7 @@ def validateJSON(jsonPath):
         return False
     f.close()
 
-    # Second goes in the contents of the json file and comapres the dicts to each other 
+    # Second, goes in the contents of the json file and comapres the dicts to each other 
     if(validateSchema(jsonPath)):
         return True
     else:
@@ -109,6 +111,9 @@ def uploadDocument(srcPath, destPath):
         destPath += '.json'
     
     if fileExtension == '.json':
+        if(not validateJSON(srcPath)):
+            print("Inavlid json file")
+            return
         f = open(srcPath)
         data = json.load(f)
         with open(destPath, 'w') as jsonf:
@@ -120,5 +125,5 @@ def uploadDocument(srcPath, destPath):
 
 # convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
-print(validateJSON("../documents/67test.json"))
+# print(validateJSON("../documents/67test.json"))
 
