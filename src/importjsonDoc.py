@@ -111,9 +111,6 @@ def uploadDocument(srcPath, destPath):
         destPath += '.json'
     
     if fileExtension == '.json':
-        if(not validateJSON(srcPath)):
-            print("Inavlid json file")
-            return
         f = open(srcPath)
         data = json.load(f)
         with open(destPath, 'w') as jsonf:
