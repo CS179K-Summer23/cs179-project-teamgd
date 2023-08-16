@@ -48,7 +48,7 @@ def appendInput(userInput):
  with open(path, 'a') as loginKey:
   loginKey.write(str(userInput))
   loginKey.write("\n")
-  loginKey.close()
+ loginKey.close()
 
 
 def login(username, password):
@@ -65,9 +65,6 @@ def login(username, password):
      return(True)
   loginInfo.close()
   return(False)
-
-
-
 
 
 def loginEncrypt(filename):
@@ -114,7 +111,7 @@ def encryptCheck():
   lines = loginCheck.readlines()
   if len(lines) == 0:
    createLogin("test", "test")
-   loginEncrypt()
+   loginEncrypt("login")
   if len(lines) > 1:
    loginEncrypt("login")
   loginCheck.close()
