@@ -172,9 +172,7 @@ def deleteSecurityQuestion(username):
  userindex = lines.index(username + "\n")
  with open(path, 'w') as security:
   for line in lines:
-   if line.split('\n') == username:
-    userindex = index
-   elif username == line.strip("\n") or index == (userindex + 1) or index == (userindex + 2):
+   if username == line.strip("\n") or index == (userindex + 1) or index == (userindex + 2):
     pass
    else:
     security.write(line)
