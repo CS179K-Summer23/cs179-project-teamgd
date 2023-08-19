@@ -11,12 +11,11 @@ def getPath(document):
 
 def usernameQuery():
  while(True):
-  print("Input a username > ", end = "")
-  newUsername = input()
+  newUsername = input("Input a username > ")
   if usernameCheck(newUsername):
    print("Creating new username...")
    passwordQuery(newUsername)
-   return
+   return newUsername
   else:
    print("Username is invalid. Please provide different username.")
 
@@ -31,9 +30,16 @@ def usernameCheck(newUsername):
   return(True)
 
 
+def getPassword(username):
+ path = getPath("login.txt")
+ with open(path, 'r') as loginInfo:
+  lines = loginInfo.readlines()
+ loginInfo.close()
+ return lines[(lines.index(username + "\n") + 1)].strip("\n")
+
+
 def passwordQuery(newUsername):
- print("Input a password > ", end = "")
- newPassword = input()
+ newPassword = input("Input a password > ")
  print("Creating new password...")
  createLogin(newUsername, newPassword)
 
@@ -62,9 +68,9 @@ def login(username, password):
     usernameIndex = usernameLines.index(usernameLine)
     if passwordLines[usernameIndex].strip('\n') == password:
      loginInfo.close()
-     return(True)
+     return True 
   loginInfo.close()
-  return(False)
+  return False 
 
 
 def loginEncrypt(filename):
