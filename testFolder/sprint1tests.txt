@@ -29,3 +29,19 @@ Week 2
 - Ensure that when a user changes their username/password, their credentials are correctly changed, and the new credentials can be used to log in successfully
 - Ensure that when a user runs the export function, the document is correctly downloaded to the machine
 - Ensure that when a user runs the "sort documents in alphabetical order" function, the documents are correctly sorted (correct order when using list docs function, as well as docnum are updated)
+
+Week 3
+
+- Ensure that csv file is successfully exported from json doc
+- Ensure that documents are sorted based on alphabetical order when requested
+- Ensure that the database query for a document based on name is successful 
+- Ensure that there is an open option after query
+- Ensure that user permissions do not overstep security boundaries and respective accounts
+- Ensure that necessary json file generation is successful
+- Ensure that a file is shared successfully with another user when requested
+- Ensure that username is successfully changed when requested
+- Ensure that security questions are required for password retrieval
+- Ensure that only an admin is allowed to delete other users
+- Ensure that json file is verified on saving and uploading
+- Ensure that a json schema is created
+- Ensure that json file is properly queried when requested
