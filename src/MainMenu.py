@@ -106,6 +106,9 @@ def uploadDoc():
     else:
         # The uploadDocument function calls convertToJson function
         uploadDocument(srcPath, documentpath + destPath) 
+        split1 = os.path.splitext(destPath)
+        if(split1[1] == ''):
+            destPath += '.json'
         db.addFile(destPath)
         print("Uploaded document")
 
