@@ -11,12 +11,11 @@ def getPath(document):
 
 def usernameQuery():
  while(True):
-  print("Input a username > ", end = "")
-  newUsername = input()
+  newUsername = input("Input a username > ")
   if usernameCheck(newUsername):
    print("Creating new username...")
    passwordQuery(newUsername)
-   return
+   return newUsername
   else:
    print("Username is invalid. Please provide different username.")
 
@@ -31,9 +30,16 @@ def usernameCheck(newUsername):
   return(True)
 
 
+def getPassword(username):
+ path = getPath("login.txt")
+ with open(path, 'r') as loginInfo:
+  lines = loginInfo.readlines()
+ loginInfo.close()
+ return lines[(lines.index(username + "\n") + 1)].strip("\n")
+
+
 def passwordQuery(newUsername):
- print("Input a password > ", end = "")
- newPassword = input()
+ newPassword = input("Input a password > ")
  print("Creating new password...")
  createLogin(newUsername, newPassword)
 
@@ -48,7 +54,7 @@ def appendInput(userInput):
  with open(path, 'a') as loginKey:
   loginKey.write(str(userInput))
   loginKey.write("\n")
-  loginKey.close()
+ loginKey.close()
 
 
 def login(username, password):
@@ -62,53 +68,13 @@ def login(username, password):
     usernameIndex = usernameLines.index(usernameLine)
     if passwordLines[usernameIndex].strip('\n') == password:
      loginInfo.close()
-     return(True)
+     return True 
   loginInfo.close()
-  return(False)
+  return False 
 
 
-def changePassword(username, newPassword):
- path = getPath("login.txt")
- with open(path, 'r') as loginInfo:
-  lines = loginInfo.readlines()
- loginInfo.close()
- with open(path, 'w') as loginInfo:
-  index = 0
-  flag = True
-  for line in lines:
-   if not flag:
-    loginInfo.write(newPassword)
-    loginInfo.write("\n")
-    flag = True
-   else:
-    loginInfo.write(line)
-   if line.strip('\n') == username and index % 2 == 0:
-    flag = False
-   index += 1
- loginInfo.close()
-
-
-def deleteUser(username):
- path = getPath("login.txt")
- with open(path, 'r') as loginInfo:
-  lines = loginInfo.readlines()
- loginInfo.close()
- with open(path, 'w') as loginInfo:
-  index = 0
-  flag = True
-  for line in lines:
-   if (line.strip('\n') != username or index % 2 == 1) and flag:
-    loginInfo.write(line)
-   elif not flag:
-    flag = True
-   if line.strip('\n') == username and index % 2 == 0:
-    flag = False
-   index += 1
- loginInfo.close()
-
-
-def loginEncrypt():
- path = getPath("login.txt")
+def loginEncrypt(filename):
+ path = getPath(str(filename) + ".txt")
  keyPath = getPath("filekey.key")
  with open(keyPath, 'rb') as filekey:
   key = filekey.read()
@@ -126,8 +92,8 @@ def loginEncrypt():
  encryptedFile.close()
 
 
-def loginDecrypt():
- path = getPath("login.txt")
+def loginDecrypt(filename):
+ path = getPath(str(filename) + ".txt")
  keyPath = getPath("filekey.key")
  with open(keyPath, 'rb') as filekey:
   key = filekey.read()
@@ -151,7 +117,7 @@ def encryptCheck():
   lines = loginCheck.readlines()
   if len(lines) == 0:
    createLogin("test", "test")
-   loginEncrypt()
+   loginEncrypt("login")
   if len(lines) > 1:
-   loginEncrypt()
+   loginEncrypt("login")
   loginCheck.close()
