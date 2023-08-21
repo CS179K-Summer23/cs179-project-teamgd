@@ -100,10 +100,17 @@ def uploadDoc():
         
 
     
-    # The uploadDocument function calls convertToJson function
-    uploadDocument(srcPath, documentpath + destPath) 
-    db.addFile(destPath)
-    print("Uploaded document")
+    if(split[1] == '.json' and not validateJSON(srcPath)):
+        print("Inavlid json file")
+        return
+    else:
+        # The uploadDocument function calls convertToJson function
+        uploadDocument(srcPath, documentpath + destPath) 
+        split1 = os.path.splitext(destPath)
+        if(split1[1] == ''):
+            destPath += '.json'
+        db.addFile(destPath)
+        print("Uploaded document")
 
 def deleteDocument():
     db.printDocs()
