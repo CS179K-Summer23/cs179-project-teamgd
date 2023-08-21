@@ -131,7 +131,7 @@ class Database:
             if doc['name'] == fileName:
                 print("Duplicate file name: " + fileName)
                 print("File not added")
-                #should have a return statement of sorts that exits function so that remainder of code doesn't run
+                return
 
         new_entry = {
             "name": fileName,
@@ -144,8 +144,7 @@ class Database:
 
         self.updateJson()
 
-
-    def deleteFile(self, fileName, docnum):
+    def deleteFile(self, fileName, docnum, flag):
         #delete file
         deletenum = self.docnum
         if docnum == -1:
@@ -170,7 +169,8 @@ class Database:
         #decrement docnum
         self.docnum = self.docnum-1
         path = self.documentpath + fileName
-        os.remove(path)
+        if flag == 0:
+            os.remove(path)
         self.updateJson()
         
     def updateJson(self):

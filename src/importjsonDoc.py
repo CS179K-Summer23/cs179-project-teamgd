@@ -1,6 +1,7 @@
 import json
 import csv
 import os
+import shutil
 from database import *
 
 db = Database()
@@ -60,9 +61,15 @@ def convertToCsv(jsonPath):
             csvWriter.writerow(data.values())
         
         csvFile.close()
-        db.addFile(fileName)
-        print("success!")
+        #flag = db.addFile(fileName)
+        #if flag == 0:
+        print("Success!\n")
+        #elif flag == 1:
+        #    print("Conversion unsuccessful. Please try again.")
+        #    removalPath = os.path.join(os.getcwd(), fileName)
+        #    os.remove(removalPath)
         os.chdir("../src")
+        return fileName
     else:
         print("Unable to read input of json file, please try again.\n")
 
@@ -86,6 +93,23 @@ def uploadDocument(srcPath, destPath):
     else:
         print("Source File extension not JSON.")
 
+def downloadDocument(jsonPath, filepath, choice):
+    print("1. Download as JSON")
+    print("2. Download as CSV\n")
+    
+    inp = input("Please input the number corresponding to the desired function to be executed:\n")
+    
+    if inp == "1":
+        shutil.move(jsonPath, "../downloads/" + filepath)
+        print("Downloaded to downloads folder!\n")
+        db.deleteFile(filepath, choice, 1)
+    elif inp == "2":
+        fileToDownload = convertToCsv(jsonPath)
+        shutil.move("../documents/" + fileToDownload, "../downloads/" + fileToDownload)
+        print("Downloaded to downloads folder!\n")
+    else:
+        print("Unknown input, please try again.\n")
+        downloadDocument(jsonPath, filepath)
 
 # convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
