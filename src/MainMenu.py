@@ -20,7 +20,7 @@ def printMenu():
         print("4. sort documents")
         print("5. list documents")
         print("6. pin document")
-        print("7. get database statistics")
+        print("7. Query Database")
         print("8. Logout\n")
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -100,10 +100,17 @@ def uploadDoc():
         
 
     
-    # The uploadDocument function calls convertToJson function
-    uploadDocument(srcPath, documentpath + destPath) 
-    db.addFile(destPath)
-    print("Uploaded document")
+    if(split[1] == '.json' and not validateJSON(srcPath)):
+        print("Inavlid json file")
+        return
+    else:
+        # The uploadDocument function calls convertToJson function
+        uploadDocument(srcPath, documentpath + destPath) 
+        split1 = os.path.splitext(destPath)
+        if(split1[1] == ''):
+            destPath += '.json'
+        db.addFile(destPath)
+        print("Uploaded document")
 
 def deleteDocument():
     db.printDocs()

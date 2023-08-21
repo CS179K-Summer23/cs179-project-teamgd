@@ -47,16 +47,25 @@ class Database:
             print("--------------")
             print("Query Options:")
             print("--------------")
-            print("1. Find longest document (most characters)")
-            print("2. Find document with most occurrences of a specific character")
-            print("3. Find number of documents")
-            print("4. Find average file size of document")
-            print("5. Find average word count")
-            print("6. Return to main menu\n")
+            print("1. Find JSON file by name")
+            print("2. Find longest document (most characters)")
+            print("3. Find document with most occurrences of a word")
+            print("4. Find number of documents")
+            print("5. Find average file size of document")
+            print("6. Find average word count")
+            print("7. Return to main menu\n")
 
             inp = input("Please input the number corresponding to the desired function to be executed:")
-
             if inp == "1":
+                tempval = 0
+                choice = str(input("File Name: "))
+                for doc in self.db['documents']:
+                    if choice == doc['name']:
+                        tempval+=1
+                        print("\nDocument found. Doc Num is", doc['docnum'], "\n")
+                if tempval == 0:
+                    print("\nDocument not found\n")
+            elif inp == "2":
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
@@ -69,8 +78,8 @@ class Database:
                         max_name = doc['name']
                 print("Largest file: " + max_name + "\nNumber of characters: " + str(max_characters) + "\n")
                 input("Press ENTER to continue")
-            elif inp == "2":
-                inp = input("Please enter the character you wish to search for occurrences of:")
+            elif inp == "3":
+                choice = str(input("Please enter the words you wish to search for occurrences of:"))
 
                 max_characters = 0
                 max_name = ""
@@ -78,17 +87,17 @@ class Database:
                     path = self.documentpath + doc['name']
                     file = open(path, "r")
                     data = file.read()
-                    number_of_characters = data.count(inp)
+                    number_of_characters = data.count(choice)
                     if (max_characters < number_of_characters):
                         max_characters = number_of_characters
                         max_name = doc['name']
-                print("\nFile with most occurrences of \'" + inp + "\': " + max_name + "\nNumber of \'" + inp + "\'s: " + str(max_characters) + "\n")
+                print("\nFile with most occurrences of \'" + choice + "\': " + max_name + "\nNumber of \'" + choice + "\'s: " + str(max_characters) + "\n")
                 input("Press ENTER to continue")
                 print("\n")
-            elif inp == "3":
+            elif inp == "4":
                 print("\nNumber of Documents in the database: " + str(len(self.db['documents'])))
                 print("\n")
-            elif inp == "4":
+            elif inp == "5":
                 averagefileSize = 0
                 for doc in self.db['documents']:
                     path = self.documentpath + doc['name']
@@ -98,10 +107,10 @@ class Database:
                 print("\nAverage file size among documents is: " + str(averagefileSize) + " bytes.")
                 
                 print("\n")
-            elif inp == "6":
+            elif inp == "7":
                 print("\n")
                 break
-            elif inp == "5":
+            elif inp == "6":
                 overallwordCount = 0
                 for doc in self.db['documents']:
                     path = self.documentpath + doc['name']
@@ -114,9 +123,6 @@ class Database:
                 print("\nAverage word count among documents is: " + str(overallwordCount))
                 
                 print("\n")
-            elif inp == "6":
-                print("\n")
-                break
 
     def pinDoc(self, fileName):
         self.pinnedDocs.append(fileName)
