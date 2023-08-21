@@ -20,7 +20,7 @@ def printMenu():
         print("4. sort documents")
         print("5. list documents")
         print("6. pin document")
-        print("7. get database statistics")
+        print("7. Query Database")
         print("8. Logout\n")
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":

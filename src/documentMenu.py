@@ -4,13 +4,25 @@ from importjsonDoc import *
 from tkinter import *
 from DocumentStat import *
 
+currentpath = os.getcwd()
+parentpath = os.path.dirname(currentpath)
+documentpath = parentpath + "/documents/"
+
 def printDocumentMenu(filepath):
+    # with open(documentpath + filepath) as json_file:
+    #     jsondict = json.load(json_file)
+    
+    # print(jsondict)
+    # print(jsondict[1]['Age'])
+    # print(len(jsondict))
+    # list_of_the_keys = list(jsondict.keys())
+    
     while(True):
         print("--------------")
         print("Document Menu:")
         print("--------------")
         print("1. edit document")
-        print("2. convert document")
+        print("2. Search document")
         print("3. retrieve document statistics")
         print("4. return to main menu\n")
         # print(filepath)
@@ -20,7 +32,7 @@ def printDocumentMenu(filepath):
             editDocument(filepath)
         elif inp == "2":
             print("\n")
-            convertDocument(filepath)
+            searchDocument(filepath)
         elif inp == "3":
             print("\n")
             getDocumentStatistics(filepath)
@@ -65,6 +77,17 @@ def editDocument(filepath):
     open_file()
     texteditor.mainloop()
 
+def searchDocument(filepath):
+    print("\nPlease enter search word:")
+    choice = str(input())
+    tempcount = 0
+    with open(documentpath + filepath, 'r') as findword:
+        for linenum, line in enumerate(findword):
+            if choice in line:
+                print(choice, "found on line", linenum+1)
+                tempcount += 1
+    if tempcount == 0:
+        print(choice, " not found in file!")
     
 
 def convertDocument(filepath):
