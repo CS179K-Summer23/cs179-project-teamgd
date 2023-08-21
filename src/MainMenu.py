@@ -7,7 +7,6 @@ db = Database()
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
-documentpath = parentpath + "/documents/"
 
 def printMenu():
     while (True):
@@ -20,7 +19,7 @@ def printMenu():
         print("4. sort documents")
         print("5. list documents")
         print("6. pin document")
-        print("7. Query Database")
+        print("7. get database statistics")
         print("8. Logout\n")
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -53,11 +52,14 @@ def openDocument():
     db.printDocs()
     print("Please type the number of the document you want to open")
     choice = int(input())
-    filepath = db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
-    # removed parenth path 
+    filepath = parentpath + "/documents/" + db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
     printDocumentMenu(filepath)
-    
-def uploadDoc():
+
+def openDocumentFromDB(filename):
+    filepath = parentpath + "/documents/" + db.getDocByDocnum(filename)['name'] #docinfo is the json entry of the document in docinfo.json
+    printDocumentMenu(filepath)
+
+def uploadDoc(user):
     flag = 0
     while(True):
         if(flag == 1):
@@ -71,18 +73,17 @@ def uploadDoc():
             while(True):
                 print("1. Return to Main Menu")
                 print("2. Change file you want to upload\n")
-                print("Uploading file to: " + documentpath + "\n")
-                destPath = input("File name: ")
-                split1 = os.path.splitext(documentpath + destPath)
+                destPath = input("Input where you want to upload and file name: ")
+                split1 = os.path.splitext(destPath)
                 
-                if(os.path.isfile(documentpath + destPath) or os.path.isfile(documentpath + destPath + '.json')):
+                if(os.path.isfile(destPath) or os.path.isfile(destPath + '.json')):
                     print("File already exists")
                 elif(destPath == "1"):
                     return
                 elif(destPath == "2"):
                     break
-                # elif(os.path.isdir(destPath)):
-                #     print("Directory exists, need filename\n")
+                elif(os.path.isdir(destPath)):
+                    print("Directory exists, need filename\n")
                 elif(len(split1[1]) == 0):
                     flag = 1
                     break
@@ -100,17 +101,10 @@ def uploadDoc():
         
 
     
-    if(split[1] == '.json' and not validateJSON(srcPath)):
-        print("Inavlid json file")
-        return
-    else:
-        # The uploadDocument function calls convertToJson function
-        uploadDocument(srcPath, documentpath + destPath) 
-        split1 = os.path.splitext(destPath)
-        if(split1[1] == ''):
-            destPath += '.json'
-        db.addFile(destPath)
-        print("Uploaded document")
+    # The uploadDocument function calls convertToJson function
+    uploadDocument(srcPath, destPath) 
+    db.addFile(destPath)
+    print("Uploaded document")
 
 def deleteDocument():
     db.printDocs()
@@ -128,12 +122,14 @@ def listDocuments():
 
 def pinDocument():
     db.printDocs()
-    print("Please type the number of the document you want to pin")
+    print("Please type the number of the document you want to open")
     choice = int(input())
     db.pinDoc(db.getDoc(choice)['name'])
 
 def getDatabaseStats():
-    db.printDBMenu()
+    choosedoc = db.printDBMenu()
+    if (choosedoc[0] == 1):
+        openDocumentFromDB(choosedoc[1])
 
 def userInput():
     inp = input("Please input the number corresponding to the desired function to be executed:\n")

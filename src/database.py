@@ -4,7 +4,6 @@ import os
 class Database:
     currentpath = os.getcwd()
     parentpath = os.path.dirname(currentpath)
-    documentpath = parentpath + "/documents/"
     db = {}
     docnum = 1
     pinnedDocs = []
@@ -41,35 +40,33 @@ class Database:
         for doc in self.db['documents']:
             if choice == doc['docnum']:
                 return doc
+
+    def getDocByDocnum(self, docname):
+        for doc in self.db['documents']:
+            if docname == doc['name']:
+                return doc
+        print("File not Found!")
+        return 0
             
-    def printDBMenu(self):        
+    def printDBMenu(self):
         while (True):
             print("--------------")
             print("Query Options:")
             print("--------------")
-            print("1. Find JSON file by name")
-            print("2. Find longest document (most characters)")
-            print("3. Find document with most occurrences of a word")
-            print("4. Find number of documents")
-            print("5. Find average file size of document")
-            print("6. Find average word count")
-            print("7. Return to main menu\n")
+            print("1. Find longest document (most characters)")
+            print("2. Find document with most occurrences of a specific character")
+            print("3. Find number of documents")
+            print("4. Find average file size of document")
+            print("5. Find average word count")
+            print("6. Return to main menu\n")
 
             inp = input("Please input the number corresponding to the desired function to be executed:")
+
             if inp == "1":
-                tempval = 0
-                choice = str(input("File Name: "))
-                for doc in self.db['documents']:
-                    if choice == doc['name']:
-                        tempval+=1
-                        print("\nDocument found. Doc Num is", doc['docnum'], "\n")
-                if tempval == 0:
-                    print("\nDocument not found\n")
-            elif inp == "2":
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = self.documentpath + doc['name']
+                    path = self.parentpath + "/documents/" + doc['name']
                     file = open(path, "r")
                     data = file.read()
                     number_of_characters = len(data)
@@ -77,43 +74,47 @@ class Database:
                         max_characters = number_of_characters
                         max_name = doc['name']
                 print("Largest file: " + max_name + "\nNumber of characters: " + str(max_characters) + "\n")
-                input("Press ENTER to continue")
-            elif inp == "3":
-                choice = str(input("Please enter the words you wish to search for occurrences of:"))
+                choosedoc = self.openfileprompt(max_name)
+                print(choosedoc)
+                return choosedoc
+
+            elif inp == "2":
+                inp = input("Please enter the character you wish to search for occurrences of:")
 
                 max_characters = 0
                 max_name = ""
                 for doc in self.db['documents']:
-                    path = self.documentpath + doc['name']
+                    path = self.parentpath + "/documents/" + doc['name']
                     file = open(path, "r")
                     data = file.read()
-                    number_of_characters = data.count(choice)
+                    number_of_characters = data.count(inp)
                     if (max_characters < number_of_characters):
                         max_characters = number_of_characters
                         max_name = doc['name']
-                print("\nFile with most occurrences of \'" + choice + "\': " + max_name + "\nNumber of \'" + choice + "\'s: " + str(max_characters) + "\n")
-                input("Press ENTER to continue")
-                print("\n")
-            elif inp == "4":
+                print("\nFile with most occurrences of \'" + inp + "\': " + max_name + "\nNumber of \'" + inp + "\'s: " + str(max_characters) + "\n")
+                choosedoc = self.openfileprompt(max_name)
+                print(choosedoc)
+                return choosedoc
+            elif inp == "3":
                 print("\nNumber of Documents in the database: " + str(len(self.db['documents'])))
                 print("\n")
-            elif inp == "5":
+            elif inp == "4":
                 averagefileSize = 0
                 for doc in self.db['documents']:
-                    path = self.documentpath + doc['name']
+                    path = self.parentpath + "/documents/" + doc['name']
                     averagefileSize += os.path.getsize(path)
                 
                 averagefileSize /= len(self.db['documents'])
                 print("\nAverage file size among documents is: " + str(averagefileSize) + " bytes.")
                 
                 print("\n")
-            elif inp == "7":
+            elif inp == "6":
                 print("\n")
                 break
-            elif inp == "6":
+            elif inp == "5":
                 overallwordCount = 0
                 for doc in self.db['documents']:
-                    path = self.documentpath + doc['name']
+                    path = self.parentpath + "/documents/" + doc['name']
                     file = open(path, "r")
                     data = file.read()
                     lines = data.split()
@@ -123,21 +124,29 @@ class Database:
                 print("\nAverage word count among documents is: " + str(overallwordCount))
                 
                 print("\n")
+            elif inp == "6":
+                print("\n")
+                break
+    def openfileprompt(self, docname):
+        print("1. Open file: " + docname)
+        print("2. Return to Query Menu")
+        inp = input("Please input the number corresponding to the desired function to be executed:")
+        if inp == "1":
+            return [1, docname]
+        else:
+            return [0, ""];
 
     def pinDoc(self, fileName):
         self.pinnedDocs.append(fileName)
         for doc in self.db['documents']:
             if doc['name'] == fileName:
                 doc['pinned'] = 1
-        self.updateJson()
 
-    
     def addFile(self, fileName):
         for doc in self.db['documents']:
             if doc['name'] == fileName:
                 print("Duplicate file name: " + fileName)
                 print("File not added")
-                #should have a return statement of sorts that exits function so that remainder of code doesn't run
 
         new_entry = {
             "name": fileName,
@@ -149,7 +158,6 @@ class Database:
         self.docnum = self.docnum+1
 
         self.updateJson()
-
 
     def deleteFile(self, fileName, docnum):
         #delete file
@@ -175,7 +183,7 @@ class Database:
                 doc['docnum'] = doc['docnum']-1       
         #decrement docnum
         self.docnum = self.docnum-1
-        path = self.documentpath + fileName
+        path = self.parentpath + "/documents/" + fileName
         os.remove(path)
         self.updateJson()
         
