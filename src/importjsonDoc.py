@@ -10,23 +10,13 @@ parentpath = os.path.dirname(currentpath)
 
 def convertToJson(csvPath, jsonPath):
     data = []
-    
-    split = os.path.splitext(jsonPath)
 
-    fileExtension = split[1]
-
-    if(fileExtension == '.csv'):
-        jsonPath = jsonPath.replace(".csv", ".json")
-    else:
-        print("Not CSV file")
-        return
-    
     with open(csvPath,"r") as csvf:
         csvReader = csv.DictReader(csvf)
         for rows in csvReader:
             # Currently uses Arbitrary key 'index'
             data.append(rows)
-            
+    
     with open(jsonPath, 'w') as jsonf:
         jsonf.write(json.dumps(data, indent=4))
     
@@ -75,27 +65,62 @@ def convertToCsv(jsonPath):
     else:
         print("Unable to read input of json file, please try again.\n")
 
+def validateSchema(jsonPath):
+    schema = {}
+
+    f = open(jsonPath)
+    data = json.load(f)
+    # Takes first dict in list and makes that the schema for the file
+    schema = data[0]
+    currlines = 0
+    linesperObject = len(schema.keys()) + 2
+    
+    for i in data:
+        if (i.keys() != schema.keys()):
+            print("Keys do not match schema")
+            f.close()
+            return False
+    f.close()
+    return True
+
+def validateJSON(jsonPath):
+    # First, goes through the format of the file and validates it 
+    f = open(jsonPath)
+    try:
+        json.load(f)
+    except ValueError as err:
+        print(err)
+        f.close()
+        return False
+    f.close()
+
+    # Second, goes in the contents of the json file and comapres the dicts to each other 
+    if(validateSchema(jsonPath)):
+        return True
+    else:
+        return False
+
 # Takes from local computer to the database
 def uploadDocument(srcPath, destPath):
     split = os.path.splitext(srcPath)
-    split1 = os.path.splitext(destPath)
     split1 = os.path.splitext(destPath)
 
     fileExtension = split[1]
 
     if(split1[1] == ""):
         destPath += '.json'
-
+    
     if fileExtension == '.json':
         f = open(srcPath)
         data = json.load(f)
         with open(destPath, 'w') as jsonf:
             jsonf.write(json.dumps(data, indent=4))
         f.close()
-    else:
-        print("Source File extension not JSON.")
+    elif(fileExtension == '.csv'):
+        convertToJson(srcPath, destPath)
 
 
-convertToJson("../documents/test.csv", "../documents/test.csv")
+# convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
+# print(validateJSON("../documents/67test.json"))
 
