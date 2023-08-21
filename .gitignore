@@ -1,1 +1,7 @@
 src/__pycache__
+.DS_Store
+data/documentstats.json
+downloads/
+src/.DS_Store
+testFolder/.DS_Store
+testFolder/test.json
