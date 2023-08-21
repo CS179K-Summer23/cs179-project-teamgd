@@ -103,20 +103,5 @@ def searchDocument(filepath):
     if tempcount == 0:
         print(choice, " not found in file!")
     
-
-"""def convertDocument(filepath, choice):
-    print("1. Convert CSV to JSON")
-    print("2. Convert JSON to CSV\n")
-
-    inp = input("Please input the number corresponding to the desired function to be executed:\n")
-            
-    if(inp == '1'):
-        convertToJson(documentpath + filepath, documentpath + filepath)
-    elif(inp == '2'):
-        downloadDocument(documentpath + filepath, filepath, choice)
-    else:
-        print("Unknown input, please try again.\n")
-        convertDocument(documentpath + filepath)
-"""
 def getDocumentStatistics(filepath):
     populateDataStat(documentpath + filepath)
