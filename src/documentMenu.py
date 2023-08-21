@@ -39,7 +39,7 @@ def printDocumentMenu(filepath, choice):
             getDocumentStatistics(filepath)
         elif inp == "4":
             print("\n")
-            convertDocument(filepath, choice)
+            downloadDocument(documentpath + filepath, filepath, choice)
             break
         elif inp == "5":
             print("\n")
@@ -104,7 +104,7 @@ def searchDocument(filepath):
         print(choice, " not found in file!")
     
 
-def convertDocument(filepath, choice):
+"""def convertDocument(filepath, choice):
     print("1. Convert CSV to JSON")
     print("2. Convert JSON to CSV\n")
 
@@ -117,6 +117,6 @@ def convertDocument(filepath, choice):
     else:
         print("Unknown input, please try again.\n")
         convertDocument(documentpath + filepath)
-
+"""
 def getDocumentStatistics(filepath):
     populateDataStat(documentpath + filepath)
