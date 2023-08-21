@@ -50,6 +50,8 @@ def editDocument(filepath):
     texteditor.title("Text Editor")
     scrollbar = Scrollbar(texteditor)
     scrollbar.pack(side=RIGHT, fill=Y)
+    statusbar = Label(texteditor, text = 'Ready', anchor=E)
+    statusbar.pack(fill=X, side=BOTTOM, ipady=5)
     
     text = Text(texteditor, yscrollcommand=scrollbar.set)
     text.pack(fill=BOTH)
@@ -63,9 +65,16 @@ def editDocument(filepath):
         textfile.close()
     #save file
     def save_file():
-        textfile = open(documentpath + filepath, 'w')
+        textfile = open(documentpath + "temp.json", 'w')
         textfile.write(text.get(1.0, END))
         textfile.close()
+        if(validateJSON(documentpath + "temp.json")):
+            textfile = open(documentpath + filepath, 'w')
+            textfile.write(text.get(1.0, END))
+            textfile.close()
+            statusbar.config(text=f'Saved')
+        else:
+            statusbar.config(text=f'File is not correct Json Format')
     #set up buttons
     mymenu = Menu(texteditor)
     texteditor.config(menu=mymenu)
