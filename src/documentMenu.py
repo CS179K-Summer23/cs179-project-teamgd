@@ -8,7 +8,7 @@ currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
 documentpath = parentpath + "/documents/"
 
-def printDocumentMenu(filepath):
+def printDocumentMenu(filepath, choice):
     # with open(documentpath + filepath) as json_file:
     #     jsondict = json.load(json_file)
     
@@ -22,9 +22,10 @@ def printDocumentMenu(filepath):
         print("Document Menu:")
         print("--------------")
         print("1. edit document")
-        print("2. Search document")
+        print("2. search document")
         print("3. retrieve document statistics")
-        print("4. return to main menu\n")
+        print("4. download document")
+        print("5. return to main menu\n")
         # print(filepath)
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -37,6 +38,10 @@ def printDocumentMenu(filepath):
             print("\n")
             getDocumentStatistics(filepath)
         elif inp == "4":
+            print("\n")
+            downloadDocument(documentpath + filepath, filepath, choice)
+            break
+        elif inp == "5":
             print("\n")
             break
         else:
@@ -98,20 +103,5 @@ def searchDocument(filepath):
     if tempcount == 0:
         print(choice, " not found in file!")
     
-
-def convertDocument(filepath):
-    print("1. Convert CSV to JSON")
-    print("2. Convert JSON to CSV")
-
-    inp = input("Please input the number corresponding to the desired function to be executed:\n")
-            
-    if(inp == '1'):
-        convertToJson(documentpath + filepath, documentpath + filepath)
-    elif(inp == '2'):
-        convertToCsv(documentpath + filepath)
-    else:
-        print("Unknown input, please try again.\n")
-        convertDocument(documentpath + filepath)
-
 def getDocumentStatistics(filepath):
     populateDataStat(documentpath + filepath)

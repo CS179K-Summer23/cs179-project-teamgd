@@ -55,7 +55,7 @@ def openDocument():
     choice = int(input())
     filepath = db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
     # removed parenth path 
-    printDocumentMenu(filepath)
+    printDocumentMenu(filepath, choice)
     
 def uploadDoc():
     flag = 0
@@ -116,7 +116,7 @@ def deleteDocument():
     db.printDocs()
     print("Please type the number of the document you want to delete")
     choice = int(input())
-    db.deleteFile(fileName = "", docnum=choice)
+    db.deleteFile(fileName = "", docnum=choice, flag = 0)
 
 def sortDocuments():
     db.printDocs()

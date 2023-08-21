@@ -1,0 +1,5 @@
+[
+    {"Age": 18.0, "Salary": 20000.0, "Gender": "Male", "Country": "Germany", "Purchased": "N"},
+    {"Age": 19.0, "Salary": 22000.0, "Gender": "Female", "Country": "France", "Purchased": "N"},
+    {"Age": 20.0, "Salary": 24000.0, "Gender": "Female", "Country": "England", "Purchased": "N"}
+]
