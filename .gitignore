@@ -1,8 +1,4 @@
 src/__pycache__
 ../.DS_Store
-../data/documentstats.json
 .DS_Store
 ../testFolder/.DS_Store
-../testFolder/test.json
-data/documentstats.json
-testFolder/test.json
