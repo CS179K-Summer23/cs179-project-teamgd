@@ -47,6 +47,7 @@ def passwordQuery(newUsername):
 def createLogin(newUsername, newPassword):
  appendInput(newUsername)
  appendInput(newPassword)
+ createProfile(newUsername)
 
 
 def appendInput(userInput):
@@ -71,6 +72,16 @@ def login(username, password):
      return True 
   loginInfo.close()
   return False 
+
+
+def createProfile(username): 
+ currentpath = os.getcwd()
+ parentpath = os.path.dirname(currentpath)
+ profilepath = parentpath + "/documents/" + username
+ if not os.path.exists(profilepath):
+  os.makedirs(profilepath)
+ else:
+  print("User already has a profile associated in the database!")
 
 
 def loginEncrypt(filename):
