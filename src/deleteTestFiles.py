@@ -14,7 +14,7 @@ def deleteTestFiles():
 
     for i in range(len(files)):
         filepath = path + files[i]
-        db.deleteFile(fileName=files[i], docnum=-1)
+        db.deleteFile(fileName=files[i], docnum=-1, flag=0)
 
 
 

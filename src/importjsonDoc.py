@@ -1,12 +1,14 @@
 import json
 import csv
 import os
+import shutil
 from database import *
 
 db = Database()
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
+documentpath = parentpath + "/documents/"
 
 def convertToJson(csvPath, jsonPath):
     data = []
@@ -23,27 +25,18 @@ def convertToJson(csvPath, jsonPath):
     # print("Success")
     
 def convertToCsv(jsonPath):
-    print(jsonPath)
     length = len(jsonPath)
     check = jsonPath[length - 5:]
-    print(check)
         
     if check == ".json":
-        pathElements = jsonPath.split("..") #should be '/'
-        print(pathElements)
+        pathElements = jsonPath.split("/")
         numOfElements = len(pathElements)
-        fileToOpen = ".." + pathElements[numOfElements - 1] #gives ../documents/test.json when it should only be test.json
-        print(fileToOpen)
-        with open(fileToOpen) as json_file:
+        fileToOpen = pathElements[numOfElements - 1]
+        with open(documentpath + fileToOpen) as json_file:
             jsonData = json.load(json_file)
     
-        inputSplit = pathElements[numOfElements - 1].split("/") #should be '.'
-        print(inputSplit) #should give something like ['test', 'json'] after splitting with '.' but because we have to split with '/' it gives ['', 'documents', 'test.json']
-        #next 3 lines are extra steps that will be taken out but are necessary right now until naming issue is fixed
-        tempLength = len(inputSplit)
-        temp = inputSplit[tempLength - 1]
-        temp2 = temp.split(".")
-        fileName = temp2[0] + ".csv" #should be inputSplit[0]
+        inputSplit = fileToOpen.split(".")
+        fileName = inputSplit[0] + ".csv"
         os.chdir("../documents")
         csvFile = open(fileName, "w")
         csvWriter = csv.writer(csvFile)
@@ -58,10 +51,15 @@ def convertToCsv(jsonPath):
             csvWriter.writerow(data.values())
         
         csvFile.close()
-        #destinationPath = parentpath + "/documents/" + fileName
-        db.addFile(fileName) #doesn't save it to correct directory but it saves
-        print("success!")
+        #flag = db.addFile(fileName)
+        #if flag == 0:
+        print("Success!\n")
+        #elif flag == 1:
+        #    print("Conversion unsuccessful. Please try again.")
+        #    removalPath = os.path.join(os.getcwd(), fileName)
+        #    os.remove(removalPath)
         os.chdir("../src")
+        return fileName
     else:
         print("Unable to read input of json file, please try again.\n")
 
@@ -119,8 +117,24 @@ def uploadDocument(srcPath, destPath):
     elif(fileExtension == '.csv'):
         convertToJson(srcPath, destPath)
 
+def downloadDocument(jsonPath, filepath, choice):
+    print("1. Download as JSON")
+    print("2. Download as CSV\n")
+    
+    inp = input("Please input the number corresponding to the desired function to be executed:\n")
+    
+    if inp == "1":
+        shutil.move(jsonPath, "../downloads/" + filepath)
+        print("Downloaded to downloads folder!\n")
+        db.deleteFile(filepath, choice, 1)
+    elif inp == "2":
+        fileToDownload = convertToCsv(jsonPath)
+        shutil.move("../documents/" + fileToDownload, "../downloads/" + fileToDownload)
+        print("Downloaded to downloads folder!\n")
+    else:
+        print("Unknown input, please try again.\n")
+        downloadDocument(jsonPath, filepath)
 
 # convertToJson("../documents/test.csv", "../documents/test.csv")
 # uploadDocument("test2.json", "new2.json")
 # print(validateJSON("../documents/67test.json"))
-

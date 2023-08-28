@@ -147,6 +147,7 @@ class Database:
             if doc['name'] == fileName:
                 print("Duplicate file name: " + fileName)
                 print("File not added")
+                return
 
         new_entry = {
             "name": fileName,
@@ -159,7 +160,7 @@ class Database:
 
         self.updateJson()
 
-    def deleteFile(self, fileName, docnum):
+    def deleteFile(self, fileName, docnum, flag):
         #delete file
         deletenum = self.docnum
         if docnum == -1:
@@ -183,8 +184,11 @@ class Database:
                 doc['docnum'] = doc['docnum']-1       
         #decrement docnum
         self.docnum = self.docnum-1
-        path = self.parentpath + "/documents/" + fileName
-        os.remove(path)
+
+        path = self.documentpath + fileName
+        if flag == 0:
+            os.remove(path)
+
         self.updateJson()
         
     def updateJson(self):

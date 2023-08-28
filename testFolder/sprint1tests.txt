@@ -45,3 +45,11 @@ Week 3
 - Ensure that json file is verified on saving and uploading
 - Ensure that a json schema is created
 - Ensure that json file is properly queried when requested
+
+Week 4
+
+- Ensure that when loaded, the json file is loaded inside a table
+- Ensure that users have respective permissions and security boundaries
+- Ensure that users are able to share files with other users when requested
+- Ensure that when reading nested JSON file, the file is flattenned
+- Ensure that when loading a JSON file, a datastructure is properly created for that file

@@ -8,7 +8,7 @@ currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
 documentpath = parentpath + "/documents/"
 
-def printDocumentMenu(filepath):
+def printDocumentMenu(filepath, choice):
     # with open(documentpath + filepath) as json_file:
     #     jsondict = json.load(json_file)
     
@@ -22,9 +22,11 @@ def printDocumentMenu(filepath):
         print("Document Menu:")
         print("--------------")
         print("1. edit document")
-        print("2. Search document")
+        print("2. search document")
         print("3. retrieve document statistics")
-        print("4. return to main menu\n")
+        print("4. download document")
+        print ("5. get value")
+        print("6. return to main menu\n")
         # print(filepath)
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -38,6 +40,13 @@ def printDocumentMenu(filepath):
             getDocumentStatistics(filepath)
         elif inp == "4":
             print("\n")
+            downloadDocument(documentpath + filepath, filepath, choice)
+            break
+        elif inp == "5":
+            print("\n")
+            getValue(filepath)
+        elif inp == "6":
+            print("\n")
             break
         else:
             print("Unknown input. Please try again.\n")
@@ -50,6 +59,8 @@ def editDocument(filepath):
     texteditor.title("Text Editor")
     scrollbar = Scrollbar(texteditor)
     scrollbar.pack(side=RIGHT, fill=Y)
+    statusbar = Label(texteditor, text = 'Ready', anchor=E)
+    statusbar.pack(fill=X, side=BOTTOM, ipady=5)
     
     text = Text(texteditor, yscrollcommand=scrollbar.set)
     text.pack(fill=BOTH)
@@ -63,9 +74,16 @@ def editDocument(filepath):
         textfile.close()
     #save file
     def save_file():
-        textfile = open(documentpath + filepath, 'w')
+        textfile = open(documentpath + "temp.json", 'w')
         textfile.write(text.get(1.0, END))
         textfile.close()
+        if(validateJSON(documentpath + "temp.json")):
+            textfile = open(documentpath + filepath, 'w')
+            textfile.write(text.get(1.0, END))
+            textfile.close()
+            statusbar.config(text=f'Saved')
+        else:
+            statusbar.config(text=f'File is not correct Json Format')
     #set up buttons
     mymenu = Menu(texteditor)
     texteditor.config(menu=mymenu)
@@ -89,20 +107,22 @@ def searchDocument(filepath):
     if tempcount == 0:
         print(choice, " not found in file!")
     
-
-def convertDocument(filepath):
-    print("1. Convert CSV to JSON")
-    print("2. Convert JSON to CSV")
-
-    inp = input("Please input the number corresponding to the desired function to be executed:\n")
-            
-    if(inp == '1'):
-        convertToJson(documentpath + filepath, documentpath + filepath)
-    elif(inp == '2'):
-        convertToCsv(documentpath + filepath)
-    else:
-        print("Unknown input, please try again.\n")
-        convertDocument(documentpath + filepath)
-
 def getDocumentStatistics(filepath):
     populateDataStat(documentpath + filepath)
+
+def getValue(filepath):
+    key = input("Enter a key: ")
+    resultlist = []
+    with open(documentpath + filepath, 'r') as json_file:
+        data = json.load(json_file)
+        getResults(data, resultlist, key)
+    print(resultlist)
+
+def getResults(data, resultlist, key):
+    if type(data) is dict and key in data:
+            resultlist.append(data.get(key))
+    for item in data:
+        if type(item) is (dict or list):
+            getResults(item, resultlist, key)
+        else:
+            return
