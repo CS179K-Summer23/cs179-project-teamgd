@@ -47,6 +47,13 @@ class Database:
                 return doc
         print("File not Found!")
         return 0
+
+    def getDocnum(self, filename):
+        for doc in self.db['documents']:
+            if filename == doc['name']:
+                return doc['docnum']
+        print("File not Found!")
+        return 0
             
     def printDBMenu(self):
         while (True):
@@ -75,7 +82,6 @@ class Database:
                         max_name = doc['name']
                 print("Largest file: " + max_name + "\nNumber of characters: " + str(max_characters) + "\n")
                 choosedoc = self.openfileprompt(max_name)
-                print(choosedoc)
                 return choosedoc
 
             elif inp == "2":
@@ -93,7 +99,6 @@ class Database:
                         max_name = doc['name']
                 print("\nFile with most occurrences of \'" + inp + "\': " + max_name + "\nNumber of \'" + inp + "\'s: " + str(max_characters) + "\n")
                 choosedoc = self.openfileprompt(max_name)
-                print(choosedoc)
                 return choosedoc
             elif inp == "3":
                 print("\nNumber of Documents in the database: " + str(len(self.db['documents'])))

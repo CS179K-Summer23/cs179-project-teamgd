@@ -8,7 +8,7 @@ currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
 documentpath = parentpath + "/documents/"
 
-def printDocumentMenu(filepath, choice):
+def printDocumentMenu(filepath, choice, filename=""):
     # with open(documentpath + filepath) as json_file:
     #     jsondict = json.load(json_file)
     
@@ -16,10 +16,9 @@ def printDocumentMenu(filepath, choice):
     # print(jsondict[1]['Age'])
     # print(len(jsondict))
     # list_of_the_keys = list(jsondict.keys())
-    
     while(True):
         print("--------------")
-        print("Document Menu:")
+        print("Document Menu:" + filename)
         print("--------------")
         print("1. edit document")
         print("2. search document")

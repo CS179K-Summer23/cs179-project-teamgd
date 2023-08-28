@@ -52,12 +52,14 @@ def openDocument():
     db.printDocs()
     print("Please type the number of the document you want to open")
     choice = int(input())
-    filepath = parentpath + "/documents/" + db.getDoc(choice)['name'] #docinfo is the json entry of the document in docinfo.json
-    printDocumentMenu(filepath)
+    docname = db.getDoc(choice)['name']
+    filepath = parentpath + "/documents/" + docname
+    printDocumentMenu(filepath, choice, docname)
 
 def openDocumentFromDB(filename):
     filepath = parentpath + "/documents/" + db.getDocByDocnum(filename)['name'] #docinfo is the json entry of the document in docinfo.json
-    printDocumentMenu(filepath)
+    docnum = db.getDocnum(filename)
+    printDocumentMenu(filepath, docnum, filename)
     
 def uploadDoc():
     flag = 0
