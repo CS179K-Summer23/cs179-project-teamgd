@@ -25,7 +25,8 @@ def printDocumentMenu(filepath, choice):
         print("2. search document")
         print("3. retrieve document statistics")
         print("4. download document")
-        print("5. return to main menu\n")
+        print ("5. get value")
+        print("6. return to main menu\n")
         # print(filepath)
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -42,6 +43,9 @@ def printDocumentMenu(filepath, choice):
             downloadDocument(documentpath + filepath, filepath, choice)
             break
         elif inp == "5":
+            print("\n")
+            getValue(filepath)
+        elif inp == "6":
             print("\n")
             break
         else:
@@ -105,3 +109,20 @@ def searchDocument(filepath):
     
 def getDocumentStatistics(filepath):
     populateDataStat(documentpath + filepath)
+
+def getValue(filepath):
+    key = input("Enter a key: ")
+    resultlist = []
+    with open(documentpath + filepath, 'r') as json_file:
+        data = json.load(json_file)
+        getResults(data, resultlist, key)
+    print(resultlist)
+
+def getResults(data, resultlist, key):
+    if type(data) is dict and key in data:
+            resultlist.append(data.get(key))
+    for item in data:
+        if type(item) is (dict or list):
+            getResults(item, resultlist, key)
+        else:
+            return
