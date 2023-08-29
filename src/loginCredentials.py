@@ -2,6 +2,7 @@ from loginEncryption import getPath, loginEncrypt, loginDecrypt
 from cryptography.fernet import Fernet
 import os
 import re
+import shutil
 
 def changeUsername(oldUsername, newUsername):
  path = getPath("login.txt")
@@ -57,7 +58,20 @@ def deleteUser(username):
     flag = False
    index += 1
  loginInfo.close()
+ deleteProfile(username)
 
+
+def deleteProfile(username):
+ currentpath = os.getcwd()
+ parentpath = os.path.dirname(currentpath)
+ profilepath = parentpath + "/documents/" + username
+ if os.path.exists(profilepath):
+  try:
+   shutil.rmtree(profilepath)
+  except OSError as e:
+   print(f"Error, {o.stderror}: {path}")
+ else:
+  print("User does not have an associated profile. This should not affect deletion process...")
 
 def adminCheck(password):
  loginDecrypt("admin")
