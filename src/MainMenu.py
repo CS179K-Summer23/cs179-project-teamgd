@@ -2,6 +2,7 @@ from database import *
 from documentMenu import *
 from importjsonDoc import *
 from LoginMenu import *
+import shutil
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
@@ -19,7 +20,9 @@ def printMenu(user):
         print("4. list documents")
         print("5. pin document")
         print("6. get database statistics")
-        print("7. Logout\n")
+        print("7. share document")
+        print("8. Logout\n")
+
         # db.updateDict()
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -44,6 +47,9 @@ def printMenu(user):
             print("\n")
             getDatabaseStats()
         elif inp == "7":
+            db.printDocs()
+            shareFile(user)
+        elif inp == "8":
             return
         else:
             print("Unknown input. Please try again.\n")
@@ -150,6 +156,25 @@ def userInput():
     else:
         print("Unknown input. Please try again.\n")
         userInput()
+
+def shareFile(user):
+    fileNum = input("Which file do you want to share? > ")
+    shareUser = input("Who do you want to share a file with? > ")
+    try:
+        db = Database(user)
+        currentpath = os.getcwd()
+        parentpath = os.path.dirname(currentpath)
+        profilepath = parentpath + "/data/docinfo" + user + ".json"
+        shareprofilepath = parentpath + "/data/docinfo" + shareUser + ".json"
+        filename = db.getDoc(int(fileNum))['name']
+        if os.path.exists(profilepath) and os.path.exists(shareprofilepath):
+            db = Database(shareUser)
+            db.addFile(filename)
+            db = Database(user)
+        else:
+            print("Cannot share this file with " + shareUser + " because user profile does not exist!\n")
+    except Exception:
+        print("Invalid input!\n")
         
 def temporaryFeatureMenu():
     print("------------------------")
