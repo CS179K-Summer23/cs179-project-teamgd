@@ -33,7 +33,7 @@ def printLoginMenu():
                  if(login(user, password)):
                       print("Login Successful!")
                       loginEncrypt("login")
-                      printMenu()
+                      printMenu(user)
                  else:
                       print("Username/Password Invalid!")
                       loginEncrypt("login")

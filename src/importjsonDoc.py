@@ -4,7 +4,7 @@ import os
 import shutil
 from database import *
 
-db = Database()
+# db = Database(user)
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
@@ -126,7 +126,7 @@ def downloadDocument(jsonPath, filepath, choice):
     if inp == "1":
         shutil.move(jsonPath, "../downloads/" + filepath)
         print("Downloaded to downloads folder!\n")
-        db.deleteFile(filepath, choice, 1)
+        # db.deleteFile(filepath, choice, 1)
     elif inp == "2":
         fileToDownload = convertToCsv(jsonPath)
         shutil.move("../documents/" + fileToDownload, "../downloads/" + fileToDownload)
