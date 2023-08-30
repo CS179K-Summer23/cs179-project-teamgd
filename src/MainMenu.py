@@ -104,7 +104,7 @@ def uploadDoc():
 
     
     # The uploadDocument function calls convertToJson function
-    uploadDocument(srcPath, destPath) 
+    uploadDocument(srcPath, documentpath + destPath) 
     db.addFile(destPath)
     print("Uploaded document")
 

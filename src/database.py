@@ -7,6 +7,7 @@ class Database:
     db = {}
     docnum = 1
     pinnedDocs = []
+    currentuser = ""
     def __init__(self, username):
         filepath = self.parentpath + "/data/docinfo" + username + ".json"
         if os.path.exists(filepath) and os.stat(filepath).st_size != 0:
@@ -17,11 +18,13 @@ class Database:
                 for doc in self.db['documents']:
                     if 'pinned' in doc and doc['pinned']:
                         self.pinnedDocs.append(doc['name'])
+            self.currentuser = username
         else:
             payload = {
                 "documents": []
             }
             self.db = payload
+            self.currentuser = username
 
     def printDocs(self):
         print("List of your documents: ")
@@ -205,5 +208,5 @@ class Database:
         
     def updateJson(self):
         json_object = json.dumps(self.db, indent=3)
-        with open(self.parentpath + "/data/docinfo.json", "w") as f:
+        with open(self.parentpath + "/data/docinfo" + self.currentuser + ".json", "w") as f:
             f.write(json_object)

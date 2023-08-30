@@ -9,6 +9,7 @@ from database import *
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
 documentpath = parentpath + "/documents/"
+downloadpath = parentpath + "/download/"
 
 def convertToJson(csvPath, jsonPath):
     data = []
@@ -124,12 +125,12 @@ def downloadDocument(jsonPath, filepath, choice):
     inp = input("Please input the number corresponding to the desired function to be executed:\n")
     
     if inp == "1":
-        shutil.move(jsonPath, "../downloads/" + filepath)
+        shutil.copy(jsonPath, downloadpath + filepath)
         print("Downloaded to downloads folder!\n")
         # db.deleteFile(filepath, choice, 1)
     elif inp == "2":
         fileToDownload = convertToCsv(jsonPath)
-        shutil.move("../documents/" + fileToDownload, "../downloads/" + fileToDownload)
+        shutil.move(documentpath + fileToDownload, downloadpath + fileToDownload)
         print("Downloaded to downloads folder!\n")
     else:
         print("Unknown input, please try again.\n")

@@ -18,7 +18,7 @@ def printDocumentMenu(filepath, choice, filename=""):
     # list_of_the_keys = list(jsondict.keys())
     while(True):
         print("--------------")
-        print("Document Menu:" + filename)
+        print("Document Menu: " + filename)
         print("--------------")
         print("1. edit document")
         print("2. search document")
@@ -39,7 +39,7 @@ def printDocumentMenu(filepath, choice, filename=""):
             getDocumentStatistics(filepath)
         elif inp == "4":
             print("\n")
-            downloadDocument(documentpath + filepath, filepath, choice)
+            downloadDocument(filepath, filename, choice)
             break
         elif inp == "5":
             print("\n")
@@ -67,7 +67,7 @@ def editDocument(filepath):
     
     #set up file
     def open_file():
-        textfile = open(documentpath + filepath, 'r')
+        textfile = open(filepath, 'r')
         content = textfile.read()
         text.insert(END, content)
         textfile.close()
@@ -77,7 +77,7 @@ def editDocument(filepath):
         textfile.write(text.get(1.0, END))
         textfile.close()
         if(validateJSON(documentpath + "temp.json")):
-            textfile = open(documentpath + filepath, 'w')
+            textfile = open(filepath, 'w')
             textfile.write(text.get(1.0, END))
             textfile.close()
             statusbar.config(text=f'Saved')
@@ -98,7 +98,7 @@ def searchDocument(filepath):
     print("\nPlease enter search word:")
     choice = str(input())
     tempcount = 0
-    with open(documentpath + filepath, 'r') as findword:
+    with open(filepath, 'r') as findword:
         for linenum, line in enumerate(findword):
             if choice in line:
                 print(choice, "found on line", linenum+1)
@@ -107,12 +107,12 @@ def searchDocument(filepath):
         print(choice, " not found in file!")
     
 def getDocumentStatistics(filepath):
-    populateDataStat(documentpath + filepath)
+    populateDataStat(filepath)
 
 def getValue(filepath):
     key = input("Enter a key: ")
     resultlist = []
-    with open(documentpath + filepath, 'r') as json_file:
+    with open(filepath, 'r') as json_file:
         data = json.load(json_file)
         getResults(data, resultlist, key)
     print(resultlist)
