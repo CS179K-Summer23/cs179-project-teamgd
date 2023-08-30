@@ -184,10 +184,9 @@ def getValue(filepath):
     print(resultlist)
 
 def getResults(data, resultlist, key):
-    if type(data) is dict and key in data:
+    if type(data) is dict:
+        if key in data:
             resultlist.append(data.get(key))
-    for item in data:
-        if type(item) is (dict or list):
-            getResults(item, resultlist, key)
-        else:
-            return
+        for item in data.keys():
+            if type(data[item]) is dict or type(data[item]) is list:
+                getResults(data[item], resultlist, key)
