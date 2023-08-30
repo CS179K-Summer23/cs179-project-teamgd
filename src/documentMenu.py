@@ -4,6 +4,7 @@ from importjsonDoc import *
 from tkinter import *
 from DocumentStat import *
 import pandas as pd
+import numpy as np
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
@@ -23,12 +24,14 @@ def printDocumentMenu(filepath, choice, filename=""):
         print("Options: ")
         print("1. Add row")
         print("2. Edit row")
-        print("3. Search document")
-        print("4. Get value")
-        print("5. Document Statistics")
-        print("6. Download document")
-        print("7. Open Document in Text Editor")
-        print("8. Save and Return\n")
+        print("3. Add Column")
+        print("4. Search document")
+        print("5. Get value")
+        print("6. Document Statistics")
+        print("7. Download document")
+        print("8. Open Document in Text Editor")
+        print("9. Save and Return\n")
+        # 
         # print(filepath)
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -67,30 +70,37 @@ def printDocumentMenu(filepath, choice, filename=""):
             inputchoice = input()
             df.iloc[rowchoice, df.columns.get_loc(colchoice)] = inputchoice
         elif inp == "3":
+            while(True):
+                print("Input new column name")
+                choice = input()
+                break
+            df[choice] = np.nan
+        elif inp == "4":
             print("\n")
             searchDocument(filepath, df)
-        elif inp == "5":
+        elif inp == "6":
             print("\n")
             getDocumentStatistics(filepath)
-        elif inp == "6":
+        elif inp == "7":
             print("\n")
             downloadDocument(filepath, filename, choice)
             break
-        elif inp == "4":
+        elif inp == "5":
             print("\n")
             getValue(filepath)
-        elif inp == "7":
+        elif inp == "8":
             print("\n")
             editDocument(filepath)
-        elif inp == "8":
+        elif inp == "9":
             print("\n")
             break
         else:
             print("Unknown input. Please try again.\n")
+    # Save File
     exportDictionary = df.to_dict(orient="records")
     with open(filepath, "w") as f:
         f.write(json.dumps(exportDictionary, indent=4))
-
+    # Save File End
 
 def editDocument(filepath):
     #set up window
@@ -180,7 +190,9 @@ def getValue(filepath):
     resultlist = []
     with open(filepath, 'r') as json_file:
         data = json.load(json_file)
+        # print(data)
         getResults(data, resultlist, key)
+        # print(resultlist)
     print(resultlist)
 
 def getResults(data, resultlist, key):
@@ -190,3 +202,10 @@ def getResults(data, resultlist, key):
         for item in data.keys():
             if type(data[item]) is dict or type(data[item]) is list:
                 getResults(data[item], resultlist, key)
+    elif type(data) is list:
+        for item in data:
+            if type(item) is dict:
+                getResults(item, resultlist, key)
+            else:
+                if item == key:
+                    resultlist.append(item)
