@@ -3,14 +3,14 @@ from cryptography.fernet import Fernet
 import os
 import re
 
-def changeUsername(oldUsername, newUsername):
- path = getPath("login.txt")
+def changeUsername(oldUsername, newUsername, namePath, nameIndex):
+ path = getPath(namePath)
  with open(path, 'r') as loginInfo:
   lines = loginInfo.readlines()
  with open(path, 'w') as loginInfo:
   index = 0
   for line in lines:
-   if line.strip("\n") == oldUsername and index % 2 == 0:
+   if line.strip("\n") == oldUsername and index % nameIndex == 0:
     loginInfo.write(newUsername)
     loginInfo.write("\n") 
    else:
@@ -18,6 +18,10 @@ def changeUsername(oldUsername, newUsername):
    index += 1
  loginInfo.close()
 
+def changeUsernameProfile(oldUsername, newUsername):
+ path = getPath("docinfo" + oldUsername + ".json")
+ newPath = getPath("docinfo" + newUsername + ".json")
+ os.rename(path, newPath) if os.path.exists(path) else print("Could not change database name. Database for this user will not work!")
 
 def changePassword(username, newPassword):
  path = getPath("login.txt")
@@ -39,7 +43,6 @@ def changePassword(username, newPassword):
    index += 1
  loginInfo.close()
 
-
 def deleteUser(username):
  path = getPath("login.txt")
  with open(path, 'r') as loginInfo:
@@ -58,7 +61,6 @@ def deleteUser(username):
    index += 1
  loginInfo.close()
  deleteProfile(username)
-
 
 def deleteProfile(username):
  currentpath = os.getcwd()
@@ -82,7 +84,6 @@ def adminCheck(password):
  loginEncrypt("admin")
  return False
 
-
 def askQuestion(username):
  path = getPath("security.txt")
  with open(path, 'r') as security:
@@ -98,7 +99,6 @@ def askQuestion(username):
    return True
  return False
 
-
 def securityQuestionCheck(inputUsername):
  path = getPath("security.txt")
  with open(path, 'r') as security:
@@ -110,12 +110,10 @@ def securityQuestionCheck(inputUsername):
    return True
  return False
 
-
 def addSecurityQuestion(username, questionOne, questionTwo):
  appendQuestion(username)
  appendQuestion(questionOne)
  appendQuestion(questionTwo)
-
 
 def appendQuestion(userInput):
  path = getPath("security.txt")
@@ -123,7 +121,6 @@ def appendQuestion(userInput):
   security.write(str(userInput))
   security.write("\n")
  security.close()
-
 
 def selectQuestion(questionList):
  num = 1
@@ -150,7 +147,6 @@ def selectQuestion(questionList):
  modifiedAnswer = selectQuestion + ":" + answer.lower()
  del questionList[int(selection)-1]
  return modifiedAnswer, questionList
- 
 
 def changeSecurityQuestion(username, questionOne, questionTwo):
  path = getPath("security.txt")
@@ -172,7 +168,6 @@ def changeSecurityQuestion(username, questionOne, questionTwo):
    index += 1
  security.close()
 
-
 def deleteSecurityQuestion(username):
  path = getPath("security.txt")
  with open(path, 'r') as securityRead:
@@ -189,10 +184,8 @@ def deleteSecurityQuestion(username):
    index += 1
  security.close()
 
-
 def getQuestionList():
  return(["What city were you born?", "What is your favorite sports team?", "What is the make and model of your first car?", "Where is your favorite place to vacation?", "What is your favorite food?", "What city did you attend university?", "What is your mother’s middle name?", "What is the name of the street that you grew up on?", "What is the first name of your best friend?", "What was the name of your first pet?"])
-
 
 def securityEncryptCheck():
  path = getPath("security.txt")

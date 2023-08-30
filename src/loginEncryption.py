@@ -8,7 +8,6 @@ def getPath(document):
  documentpath = parentpath + "/data/"
  return(documentpath + str(document))
 
-
 def usernameQuery():
  while(True):
   newUsername = input("Input a username > ")
@@ -19,7 +18,6 @@ def usernameQuery():
   else:
    print("Username is invalid. Please provide different username.")
 
-
 def usernameCheck(newUsername):
  path = getPath("login.txt")
  with open(path, 'r') as usernameConfirm:
@@ -29,7 +27,6 @@ def usernameCheck(newUsername):
     return(False)
   return(True)
 
-
 def getPassword(username):
  path = getPath("login.txt")
  with open(path, 'r') as loginInfo:
@@ -37,18 +34,15 @@ def getPassword(username):
  loginInfo.close()
  return lines[((lines[::2].index(username + "\n") * 2) + 1)].strip("\n")
 
-
 def passwordQuery(newUsername):
  newPassword = input("Input a password > ")
  print("Creating new password...")
  createLogin(newUsername, newPassword)
 
-
 def createLogin(newUsername, newPassword):
  appendInput(newUsername)
  appendInput(newPassword)
  createProfile(newUsername)
-
 
 def appendInput(userInput):
  path = getPath("login.txt")
@@ -56,7 +50,6 @@ def appendInput(userInput):
   loginKey.write(str(userInput))
   loginKey.write("\n")
  loginKey.close()
-
 
 def login(username, password):
  path = getPath("login.txt")
@@ -73,7 +66,6 @@ def login(username, password):
   loginInfo.close()
   return False 
 
-
 def createProfile(username): 
  currentpath = os.getcwd()
  parentpath = os.path.dirname(currentpath)
@@ -84,25 +76,20 @@ def createProfile(username):
  else:
   print("User already has a profile associated in the database!")
 
-
 def loginEncrypt(filename):
  path = getPath(str(filename) + ".txt")
  keyPath = getPath("filekey.key")
  with open(keyPath, 'rb') as filekey:
   key = filekey.read()
  fernet = Fernet(key)
-
  with open(path, 'rb') as loginInfo:
   original = loginInfo.read()
-
  encrypted = fernet.encrypt(original)
  with open(path, 'wb') as encryptedFile:
   encryptedFile.write(encrypted)
-
  filekey.close()
  loginInfo.close()
  encryptedFile.close()
-
 
 def loginDecrypt(filename):
  path = getPath(str(filename) + ".txt")
@@ -110,18 +97,14 @@ def loginDecrypt(filename):
  with open(keyPath, 'rb') as filekey:
   key = filekey.read()
  fernet = Fernet(key)
-
  with open(path, 'rb') as encryptedFile:
   encrypted = encryptedFile.read()
-
  original = fernet.decrypt(encrypted)
  with open(path, 'wb') as file:
   file.write(original)
-
  filekey.close()
  encryptedFile.close()
  file.close()
-
 
 def encryptCheck():
  path = getPath("login.txt")
