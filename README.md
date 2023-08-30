@@ -19,6 +19,7 @@
 - **Our features:**
   - Interface to access database: Users interact with our database using the terminal. All valid documents are automatically displayed as a table so users can better visualize the data.
   - Authentication/User Profiles: Users can login to the database using username and password. Each user has exclusive access to their own database.
+  - Table representation of documents: All documents are represented as tables to help the user better visualize the data. These tables are created by taking all of the data from the documents and locally storing the information into dictionaries. This enables fast retrieval and editing of information. 
   - Ability to query documents: Users have the option to query the entire JSON like ctrl-f or query the table using keys.
   - Ability to find and/or replace strings - will show documents/line number of string location(s): Users can edit specific keys/values that are queried.
   - Uploading/importing documents: Users can upload documents to the database from their computer and download documents from the database to their computer. 
