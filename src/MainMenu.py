@@ -3,12 +3,12 @@ from documentMenu import *
 from importjsonDoc import *
 from LoginMenu import *
 
-db = Database()
-
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
 
-def printMenu():
+def printMenu(user):
+    global db
+    db = Database(user)
     while (True):
         print("----------")
         print("Main Menu:")

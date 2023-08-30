@@ -35,7 +35,7 @@ def getPassword(username):
  with open(path, 'r') as loginInfo:
   lines = loginInfo.readlines()
  loginInfo.close()
- return lines[(lines.index(username + "\n") + 1)].strip("\n")
+ return lines[((lines[::2].index(username + "\n") * 2) + 1)].strip("\n")
 
 
 def passwordQuery(newUsername):
@@ -77,9 +77,10 @@ def login(username, password):
 def createProfile(username): 
  currentpath = os.getcwd()
  parentpath = os.path.dirname(currentpath)
- profilepath = parentpath + "/documents/" + username
+ profilepath = parentpath + "/data/docinfo" + username + ".json"
  if not os.path.exists(profilepath):
-  os.makedirs(profilepath)
+  with open(profilepath, 'w') as newFile:
+   pass
  else:
   print("User already has a profile associated in the database!")
 

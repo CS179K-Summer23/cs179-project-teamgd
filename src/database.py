@@ -7,14 +7,21 @@ class Database:
     db = {}
     docnum = 1
     pinnedDocs = []
-    def __init__(self):
-        with open(self.parentpath + "/data/docinfo.json", "r") as f:
-            if (f):
-                self.db = json.load(f)
-            self.docnum = len(self.db['documents'])+1
-            for doc in self.db['documents']:
-                if 'pinned' in doc and doc['pinned']:
-                    self.pinnedDocs.append(doc['name'])
+    def __init__(self, username):
+        filepath = self.parentpath + "/data/docinfo" + username + ".json"
+        if os.path.exists(filepath) and os.stat(filepath).st_size != 0:
+            with open(filepath, "r") as f:
+                if (f):
+                    self.db = json.load(f)
+                self.docnum = len(self.db['documents'])+1
+                for doc in self.db['documents']:
+                    if 'pinned' in doc and doc['pinned']:
+                        self.pinnedDocs.append(doc['name'])
+        else:
+            payload = {
+                "documents": []
+            }
+            self.db = payload
 
     def printDocs(self):
         print("List of your documents: ")
