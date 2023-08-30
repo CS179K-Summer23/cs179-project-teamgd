@@ -81,7 +81,7 @@ def printCredentialMenu():
                     changeUsername(username, newUsername, "login.txt", 2)
                     changeUsername(username, newUsername, "security.txt", 3)
                     changeUsernameProfile(username, newUsername)
-                    print("Username succesfully changed!")
+                    print("Username successfully changed!")
                 else:
                     print("Password is incorrect!")
             else:
