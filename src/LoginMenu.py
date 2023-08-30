@@ -58,7 +58,6 @@ def printLoginMenu():
             else:
                 print("User does not exist!")
             loginEncrypt("login")
-            loginEncrypt("security")
         elif choice == "5": #Exit
             securityEncryptCheck()
             quit()
@@ -73,18 +72,22 @@ def printCredentialMenu():
         choice = input("\nSelect an option > ")
         if choice == "1": #Change username
             loginDecrypt("login")
+            loginDecrypt("security")
             username = input("Enter username you want to change > ")
             if not usernameCheck(username):
                 password = input("Enter password to authenticate > ")
                 if login(username, password):
                     newUsername = input("Enter new username > ")
-                    changeUsername(username, newUsername)
+                    changeUsername(username, newUsername, "login.txt", 2)
+                    changeUsername(username, newUsername, "security.txt", 3)
+                    changeUsernameProfile(username, newUsername)
                     print("Username succesfully changed!")
                 else:
                     print("Password is incorrect!")
             else:
                 print("User does not exist!")
-                loginEncrypt("login")
+            loginEncrypt("login")
+            loginEncrypt("security")
         elif choice == "2": #Change password
             loginDecrypt("login")
             username = input("Enter username > ")
