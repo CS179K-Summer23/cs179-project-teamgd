@@ -21,6 +21,7 @@ def printMenu(user):
         print("6. pin document")
         print("7. get database statistics")
         print("8. Logout\n")
+        # db.updateDict()
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
             print("\n")

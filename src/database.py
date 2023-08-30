@@ -4,6 +4,7 @@ import os
 class Database:
     currentpath = os.getcwd()
     parentpath = os.path.dirname(currentpath)
+    documentpath = parentpath + "/documents/"
     db = {}
     docnum = 1
     pinnedDocs = []
@@ -25,7 +26,7 @@ class Database:
             }
             self.db = payload
             self.currentuser = username
-
+            
     def printDocs(self):
         print("List of your documents: ")
         self.db['documents'] = sorted(self.db['documents'], key=lambda x: x['docnum'])
