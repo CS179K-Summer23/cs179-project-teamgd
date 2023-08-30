@@ -14,6 +14,7 @@
 - SQL
 - String Manipulation
 - Json Library
+- Pandas Library
 
 ## 💡 Features 
 - **Our features:**
@@ -26,7 +27,6 @@
   - Conversion of non-json documents to json format and vice versa: CSV files that are uploaded by the user are automatically read as a JSON and adhere to the JSON schema. 
   - Editing the document(s) in the database: Users have the option of directly editing the JSON or editing rows of the table.
   - Ability to pin certain documents to make them more accessible based on user’s priorities: Users have the option of pinning a document to the top of the document list. This document stays pinned until the user decides to unpin it.
-  - Sort documents based on filters: size, data accessed, alphabetical, date created: Users can sort their list of documents according to certain statistics.
   - Get statistics about document (number characters, words): Users can view the metadata of their documents.
     
 ## User Stories
@@ -35,5 +35,4 @@
   - As a developer, I want users to query documents in the database
   - As a developer, I want to enable users to convert imports and export files to and from Json
   - As a developer, I want older versions of stored documents to be available for users to access
-  - As a developer, I want users to be able to sort their documents
   - As a developer, I want to enforce customers logging in with a username and password to view their documents
