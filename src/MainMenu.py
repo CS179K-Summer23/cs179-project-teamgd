@@ -16,11 +16,10 @@ def printMenu(user):
         print("1. open document")
         print("2. upload document")
         print("3. delete document")
-        print("4. sort documents")
-        print("5. list documents")
-        print("6. pin document")
-        print("7. get database statistics")
-        print("8. Logout\n")
+        print("4. list documents")
+        print("5. pin document")
+        print("6. get database statistics")
+        print("7. Logout\n")
         # db.updateDict()
         inp = input("Please input the number corresponding to the desired function to be executed:\n")
         if inp == "1":
@@ -32,19 +31,19 @@ def printMenu(user):
         elif inp == "3":
             print("\n")
             deleteDocument()
+        # elif inp == "4":
+        #     print("\n")
+        #     sortDocuments()
         elif inp == "4":
             print("\n")
-            sortDocuments()
+            listDocuments()
         elif inp == "5":
             print("\n")
-            listDocuments()
+            pinDocument()
         elif inp == "6":
             print("\n")
-            pinDocument()
-        elif inp == "7":
-            print("\n")
             getDatabaseStats()
-        elif inp == "8":
+        elif inp == "7":
             return
         else:
             print("Unknown input. Please try again.\n")
