@@ -200,7 +200,12 @@ def getResults(data, resultlist, key):
         if key in data:
             resultlist.append(data.get(key))
         for item in data.keys():
-            # print("run for")
             if type(data[item]) is dict or type(data[item]) is list:
                 getResults(data[item], resultlist, key)
-                
+    elif type(data) is list:
+        for item in data:
+            if type(item) is dict:
+                getResults(item, resultlist, key)
+            else:
+                if item == key:
+                    resultlist.append(item)
