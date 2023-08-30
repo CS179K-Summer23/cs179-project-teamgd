@@ -21,9 +21,10 @@ textFileLength = random.randrange(50, 300)
 
 currentpath = os.getcwd()
 parentpath = os.path.dirname(currentpath)
-db = Database()
+db = Database("bob")
 
 random_words = getRandomWords()
+random_fields = getRandomFields()
 
 
 def generateTestFiles():
@@ -103,7 +104,7 @@ def generateNestedJsonLevel(current_height, branch):
 def generatePythonDict():
     dict = {}
     for i in range(dict_length*2-1):
-        json_entry_name = random.choice(random_words)
+        json_entry_name = random.choice(random_fields)
         json_entry_contents = random.choice(random_words)
         dict[json_entry_name] = json_entry_contents
     #print(dict)
